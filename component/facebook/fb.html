@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>FrontEnd Library FaceBook</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="fb-css.css">
+	<script src="fb-data.js"></script>
+	<script src="fb-js.js"></script>
+</head>
+<body>
+
+<h1 class="blind">FrontEnd Library FaceBook</h1>
+
+<!-- wrapper -->
+<div class="wrapper">
+	
+	<!-- panel-default -->
+	<div class="panel panel-default">
+		<!-- panel-default-header -->
+		<header class="panel-default-header">
+			<h2 class="header-title"></h2>
+			<div class="header-srch"> 
+				<h3 class="blind">페이스북 통합 검색</h3>
+				<input type="search" value="" placeholder="검색" title="검색어 입력" class="input-srch">
+			</div>
+			<div class="header-side">
+				<button class="btn btn-messenger"><span class="blind">메신저 시작하기</span></button>
+				<button class="btn btn-text btn-white btn-friends" style="display:none">+<span class="blind">친구 찾기</span></button>
+				<button class="btn btn-text btn-white btn-cancel" style="display:none">취소</button>
+			</div>
+		</header>
+		<!-- //panel-default-header -->
+		<!-- panel-default-main -->
+		<main class="panel-default-main">
+			<!-- grp-nav-write -->
+			<nav class="grp-nav-write">
+				<h4 class="blind">쓰기 메뉴</h4>
+				<ul class="nav nav-write">
+					<li class="item-nav-write"><button class="btn btn-nav-write" id="btn-nav-write-state">상태</button></li>
+					<li class="item-nav-write"><button class="btn btn-nav-write" id="btn-nav-write-photo">사진</button></li>
+					<li class="item-nav-write"><button class="btn btn-nav-write" id="btn-nav-write-checkin">체크인</button></li>
+				</ul>
+			</nav>
+			<!-- //grp-nav-write -->
+			<h2 class="blind">주요 컨텐츠</h2>
+			<!-- component-body -->
+			<div class="component-body component-newspd">
+				<div class="component-area">
+					<div class="yourMind">
+						<button class="btn btn-yourMind">무슨 생각을 하고 계신가요?</button>
+					</div>
+					<section class="grp-newspd">
+						<h4 class="blind">게시물 목록</h4>
+						<article class="item-newspd">
+							뉴스피드1
+						</article>
+					</section>
+				</div>
+			</div>
+		</main>
+		<!-- //panel-default-main -->
+		<!-- panel-default-nav -->
+		<nav class="panel-default-nav">
+			<h2 class="blind">메인 메뉴</h2>
+			<ul class="nav nav-main">
+				<li class="item-nav-main"><button class="btn btn-nav-main" id="btn-nav-main-newspd">뉴스피드</button></li>
+				<li class="item-nav-main"><button class="btn btn-nav-main" id="btn-nav-main-ask">요청</button></li>
+				<li class="item-nav-main"><button class="btn btn-nav-main" id="btn-nav-main-message">메시지</button></li>
+				<li class="item-nav-main"><button class="btn btn-nav-main" id="btn-nav-main-inform">알림</button></li>
+				<li class="item-nav-main"><button class="btn btn-nav-main" id="btn-nav-main-more">더보기</button></li>
+			</ul>
+		</nav>
+		<!-- //panel-default-nav -->
+	</div>
+	<!-- //panel-default -->
+
+	<!-- panel-messenger -->
+	<div class="panel panel-messenger hide">
+		<!-- <h2 class="blind">메신저 패널</h2>
+		<button class="btn btn-close"><span class="blind">메신저 패널 닫기</span></button>
+		<section class="panel-container-messenger">
+			<header class="panel-header-messenger">
+				<div class="srch-messenger"> 
+					<input type="search" value="" placeholder="검색" title="검색어 입력" class="input-srch input-messenger">
+				</div>
+				<div class="grp-btn-header-messenger">
+					<button class="btn btn-set"><span class="blind">설정</span> </button> 
+				</div>
+			</header>
+			<main class="panel-main-messenger">
+				<header class="header-messenger">
+					<h3 class="title-messenger">Messenger 시작하기</h3>
+					<p class="txt-guide-messenger">문자 메시지만큼 빠르고 기능은 더욱 다양한 messenger를 이용해보세요. 앱에서 바로 사진과 동영상을 찍을 수도 있습니다.</p>
+				</header>
+				<div class="component-messenger">
+					<p class="guide-messenger"><img src="" alt="안내 이미지" class="img-guide-messenger"></p>
+					<div class="grp-person-messenger">
+						<img src="" alt="금대원" class="img-person-messenger">
+						<p class="txt-person-messenger">대원님과 성수님이 Facebook <br> Messenger를 사용하고 있습니다.</p>
+					</div>
+					<div class="grp-btn-start-messenger">
+						<button class="btn btn-big btn-blue">설치</button>
+						<button class="btn btn-text btn-text-blue">Messenger에 대해 더 알아보기</button>
+					</div>
+				</div>
+			</main>
+		</section> -->
+	</div>
+	<!-- //panel-messenger -->
+
+	<!-- panel-side -->
+	<div class="panel panel-side hide">
+		<header class="panel-side-header">
+			<h2 class="header-title"></h2>
+			<div class="header-srch" style="display:none"> 
+				<h3 class="blind">검색</h3>
+				<input type="search" value="" placeholder="검색" title="검색어 입력" class="input-srch">
+			</div>
+			<div class="grp-btn-panelSide">
+				<button class="btn btn-back" style="display:none">
+					<span>back</span>
+				</button>
+			</div>
+		</header>
+		<nav class="nav-direction" style="display:none">
+		</nav>
+		<main class="panel-side-main">
+			<div class="component-body component-friends" style="display:none">
+				<h4>Components Friends</h4>
+				<section class="component-friends-recommend">
+					<h5>Components Friends Recommends</h5>
+				</section>
+				<section class="component-friends-code" style="display:none">
+					<h5>Components Friends Code</h5>
+				</section>
+			</div>
+		</main>
+	</div>
+	<!-- //panel-side -->
+	
+	<!-- panel-top -->
+	<div class="panel panel-btm hide">
+	</div>
+	<!-- //panel-top -->
+	
+	<!-- panel-srch -->
+	<div class="panel-srch" style="display:none">
+	</div>
+	<!-- //panel-srch -->
+
+	<!-- popup-modal -->
+	<div class="popup-modal"></div>
+	<!-- //popup-modal -->
+	
+</div>
+<!-- //wrapper -->
+
+
+<!-- <script src="fb-data.js"></script>
+<script src="fb-js.js"></script> -->
+
+</body>
+</html>

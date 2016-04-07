@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+	<script type="text/javascript" src="form.js"></script>
+	<style>
+		h3 {margin: 30px 0 0; padding:10px 0; border-top: solid 1px #ccc;}
+	</style>
+</head>
+<body>
+	
+	<!-- Form -->
+
+	<!-- Form Validation -->
+	<!-- <div id="wrap-checkForm">
+		<form name="myForm" method="post" action="/javascript/validate/">
+			<fieldset>
+				Input: <input type="text" size="32" name="inputName" value="" maxlength="32">
+				<p>text text ...</p>
+				Input2: <input type="text" size="32" name="inputName" value="" maxlength="32">
+				<input type="submit">
+			</fieldset>
+		</form>
+	</div> -->
+	<h1>JavaScript: Test input fields for Valid Data</h1>
+ <p>This JavaScript validates character input the user can enter
+  into an input or textarea. This is useful in aiding the user enter the
+  correct information such as a number or username.</p>
+ <form name="as400samplecode" action="" method="get">
+
+  <table>
+
+   <tr>
+    <td>Check for Numbers:</td>
+    <td><input type="text" id="input1" maxlength="30" size="30" />
+    </td>
+    <td><input type="button" value="Test" onclick="Javascript:testInputData('input1',numbersOnly)" /></td>
+   </tr>
+   <tr>
+    <td>Check for upto 2 Decimal:</td>
+    <td><input type="text" id="input2" maxlength="30" size="30" />
+    </td>
+    <td><input type="button" value="Test" onclick="Javascript:testInputData('input2',decimalOnly)" /></td>
+   </tr>
+   <tr>
+    <td>Check for Uppercase String:</td>
+    <td><input type="text" id="input3" maxlength="30" size="30" />
+    </td>
+    <td><input type="button" value="Test" onclick="Javascript:testInputData('input3',uppercaseOnly)" /></td>
+   </tr>
+   <tr>
+    <td>Check for Lowercase String:</td>
+    <td><input type="text" id="input4" maxlength="30" size="30" />
+    </td>
+    <td><input type="button" value="Test"o nclick="Javascript:testInputData('input4',lowercaseOnly)" /></td>
+   </tr>
+   <tr>
+    <td>Check for String:</td>
+    <td><input type="text" id="input5" maxlength="30" size="30" />
+    </td>
+    <td><input type="button" value="Test" onclick="Javascript:testInputData('input5',stringOnly)" /></td>
+   </tr>
+
+  </table>
+
+ </form>
+
+
+
+</body>
+</html>

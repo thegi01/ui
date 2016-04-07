@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Event</title>
+	<script type="text/javascript" src="event.js"></script>
+	<style>
+		h3 {margin: 40px 0 0; padding:10px 0; border-top: solid 1px #ccc;}
+		#wrap-event {margin-top: 0;}
+		#wrap-bubbling {margin-top: 20px; }
+		#wrap-bubbling .outer {padding: 20px 20px 30px; border:solid 1px #ccc;}
+		#wrap-bubbling .inner {padding: 20px; border:solid 1px green; background: yellow;}
+
+		#preventDefault {margin-top: 30px;}
+		#eventTarget {margin-top: 30px;}
+		#eventTarget .target {padding: 10px; background-color: #ccc;}
+	</style>
+</head>
+<body>
+	
+	<!-- Event -->
+
+	<!-- Add Event | Remove Event -->
+	<div id="wrap-event">
+		<h3>Add Event | Remove Event</h3>
+		<div class="add">이벤트 설정(add)</div>
+		<div class="remove">이벤트 해제(remove)</div>
+		<div class="show"></div>
+	</div>
+	<div id="wrap-event-anonymous">
+		<h3>Add Event | Remove Event > Anonymous Function인 경우 prototype 형식으로 변경</h3>
+		<div class="add">이벤트 설정 &amp; 해제</div>
+		<div class="show"></div>
+	</div>
+
+	<!-- Event Target -->
+	<div id="eventTarget">
+		<h3>Event Target</h3>
+		<div class="target">Event Target</div>
+	</div>
+
+	<!-- Prevent Default -->
+	<div id="preventDefault">
+		<h3>Prevent Default</h3>
+		<a href="http://daum.net" target="_blank">이동</a>
+		<a class="not-go" href="http://daum.net" target="_blank">이동 안 함</a>
+	</div>
+
+	<!-- Bubbling : Stop Propagation -->
+	<div id="wrap-bubbling">
+		<h3>Bubbling : Stop Propagation</h3>
+		<div class="outer">outer
+			<div class="inner">inner</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

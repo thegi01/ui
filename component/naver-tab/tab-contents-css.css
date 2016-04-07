@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+h1, h2, h3, h4, h5, section, div, p, ul, ol, li, a, span, img, em  {margin: 0; padding: 0;}
+body {font-family: Dotum,'돋움',Helvetica,AppleSDGothicNeo,sans-serif; font-size: 12px;}
+a {text-decoration:none;}
+a:hover {text-decoration:underline;}
+li {list-style: none;}
+.ie8 img {border: 0;}
+.blind {overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px;}
+.wrapper {margin:30px;}
+.wrapper > a {color:#999;}
+.tab-container {overflow-y: auto; position: relative; width: 633px; height: 560px; border: 1px solid #d6d6d6;}
+.tab-nav {background-color: #f3f3f5;}
+.tab-nav-a {display: block; height: 45px;background-image: url(nav.gif);}
+	.tab-nav-life .tab-nav-a {width: 53px; background-position: -1px 0;}
+	.tab-nav-sports .tab-nav-a {width: 50px; background-position: -54px 0;}
+	.tab-nav-car .tab-nav-a {width: 53px; background-position: -104px 0;}
+	.tab-nav-webtoon .tab-nav-a {width: 43px; background-position: -157px 0;}
+	.tab-nav-game .tab-nav-a {width: 45px; background-position: -200px 0;}
+	.tab-nav-tv .tab-nav-a {width: 61px; background-position: -245px 0;}
+	.tab-nav-music .tab-nav-a {width: 45px; background-position: -306px 0;}
+	.tab-nav-moive .tab-nav-a {width: 44px; background-position: -351px 0;}
+	.tab-nav-book .tab-nav-a {width: 50px; background-position: -395px 0;}
+	.tab-nav-naver .tab-nav-a {width: 71px; background-position: -445px 0;}
+	.tab-nav-open .tab-nav-a {width: 62px; background-position: -516px 0;}
+	.tab-nav-public .tab-nav-a {width: 56px; background-position: -578px 0;}		
+.tab-cnts {margin:9px 8px 22px 21px;}
+.lst-thumb {overflow: hidden;}
+.item {overflow: hidden; position: relative; float: left; width: 138px; height: 149px; margin-top: 13px; margin-right: 13px;}
+.item-a {display: block; color: #616161;}
+	.item-a:hover {color: #339900;}
+.area-thumb {display: block; position: relative; width: 100%; height: 82px;}	
+.img-thumb {width: 100%;}
+.mask-thumb {position: absolute; left: 0; right: 0; top: 0; bottom: 0; border: 1px solid #000; border-bottom: none;}
+	.modern .mask-thumb {opacity: .05;}
+	.ie8 .mask-thumb {filter:alpha(opacity=5);}
+.badge-thumb {position: absolute; left: 0; top: 0; height: 17px; padding: 2px 5px 0;}
+.badge-text {position: relative; z-index: 1; font-style: normal; font-size: 11px; color: #fff;}
+	.modern .badge-text {opacity: 0.9;}
+	.ie8 .badge-text {filter:alpha(opacity=90);}
+.badge-bg {position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: #000;}
+	.modern .badge-bg {opacity: 0.4;}
+	.ie8 .badge-bg {filter:alpha(opacity=40);}
+.icon-play {position: absolute; top:57px; left: 6px; width: 19px; height: 19px; background: url(icon-play.png) no-repeat; text-indent: -10000px;}
+.title-lst, 
+.stxt-lst {border-left:1px solid #ececec; border-right:1px solid #ececec; background-color: #fbfbfb;}
+.title-lst {overflow: hidden; height: 30px; padding: 8px 9px 0; line-height: 15px; font-weight: bold;}
+.stxt-lst {overflow: hidden; height: 18px; padding: 4px 9px 6px; border-bottom:1px solid #ececec; font-size: 11px; color:#999; white-space: nowrap; text-overflow:ellipsis;}	
+.item-promotion {position: relative; width: 289px;}
+.item-promotion .area-thumb {height: 100%;}
+.item-promotion .title-lst {position: absolute; bottom: 0; height: auto; margin-bottom: 10px; border: none; background-color: transparent; font-size: 14px; color: #fff; white-space: nowrap; text-overflow:ellipsis;}
+	.item-promotion .item-a:hover .title-lst {text-decoration: underline;}
+.item-promotion .stxt-lst {position: absolute; bottom: 20px; border: none; background-color: transparent; color: #fff !important;}
+	.modern .item-promotion .stxt-lst {opacity: 0.9;}
+	.ie8 .item-promotion .stxt-lst {filter:alpha(opacity=90);}
+
+.js .tab-container {overflow: hidden;}
+.js .tab-nav {float: left; border-bottom: solid 1px #d6d6d6;}
+	.js .tab-nav.active {border-bottom: none;}	
+.js .active.tab-nav-life .tab-nav-a {background-position: -1px -52px;}
+.js .active.tab-nav-sports .tab-nav-a {background-position: -54px -52px;}
+.js .active.tab-nav-car .tab-nav-a {background-position: -104px -52px;}
+.js .active.tab-nav-webtoon .tab-nav-a {background-position: -157px -52px;}
+.js .active.tab-nav-game .tab-nav-a {background-position: -200px -52px;}
+.js .active.tab-nav-tv .tab-nav-a {background-position: -245px -52px;}
+.js .active.tab-nav-music .tab-nav-a {background-position: -306px -52px;}
+.js .active.tab-nav-moive .tab-nav-a {background-position: -351px -52px;}
+.js .active.tab-nav-book .tab-nav-a {background-position: -395px -52px;}
+.js .active.tab-nav-naver .tab-nav-a {background-position: -445px -52px;}
+.js .active.tab-nav-open .tab-nav-a {background-position: -516px -52px;}
+.js .active.tab-nav-public .tab-nav-a {background-position: -578px -52px;}
+.js .tab-cnts {display: none;position: absolute; top: 45px; left: 0; right: 0;}
+.js .tab-cnts.show {display: block;}
