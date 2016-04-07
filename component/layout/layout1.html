@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if IE 7]><html lang="ko" class="old ie7"><![endif]-->
+<!--[if IE 8]><html lang="ko" class="old ie8"><![endif]-->
+<!--[if IE 9]><html lang="ko" class="modern ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="ko" class="modern"><!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<title>Layout1</title>
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="../../common/html5.js"></script>
+	<![endif]-->
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0; padding: 0;
+		}
+		#wrap {
+			overflow: hidden;
+			position: relative;
+			width: 999px; min-height: 100%;
+			margin: 0 auto;
+			border-right: solid 1px #ccc;
+			}
+			.ie7 #wrap {
+				background-image:url(bg-side.gif);
+				background-repeat: repeat-y;
+			}
+			#wrap:before {
+				content: '';
+				position: absolute; top: 0; left: 0; z-index: 0;
+				width: 180px;
+				height: 100%;
+				background-color: gray;
+			}
+		#side {
+			float: left;
+			position: relative; z-index: 1;
+			width: 160px;
+			margin-right: 20px; padding: 10px;
+			color: #fff;
+		}
+		#contents {
+			float: left;
+			width: 778px; 
+			padding: 10px;			
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="side">
+			<p>Side</p>
+			<p>backgournd color 100%</p>
+		</div>
+		<div id="contents">
+			<p>Contents</p>
+			<p>Web Layout</p>
+			<p>ie7 ~ </p>
+		</div>
+	</div>
+</body>
+</html>
