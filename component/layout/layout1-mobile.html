@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<title>Layout1 - mobile</title>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0; padding: 0;
+		}
+		#wrap {
+			overflow: hidden;
+			position: relative;
+			min-height: 100%;
+			margin: 0 auto;
+			/*border-right: solid 1px #ccc;
+			box-sizing : border-box; -webkit-box-sizing : border-box; -moz-box-sizing : border-box;*/
+			}
+			#wrap:before {
+				content: '';
+				position: absolute; top: 0; left: 0; z-index: 0;
+				width: 28%;
+				height: 100%;
+				background-color: gray;
+			}
+		#side {
+			float: left;
+			position: relative; z-index: 1;
+			width: 28%;
+			margin-right: 2%; padding: 10px;
+			color: #fff;
+			box-sizing : border-box; -webkit-box-sizing : border-box; -moz-box-sizing : border-box;
+		}
+		#contents {
+			float: left;
+			width: 70%; 
+			padding: 10px;	
+			box-sizing : border-box; -webkit-box-sizing : border-box; -moz-box-sizing : border-box;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="side">
+			<p>Side</p>
+			<p>backgournd color 100%</p>
+		</div>
+		<div id="contents">
+			<p>Contents</p>
+			<p>Web Layout</p>
+			<p>ie7 ~ </p>
+		</div>
+	</div>
+</body>
+</html>
