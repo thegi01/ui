@@ -1,0 +1,1 @@
+하드웨어가 고사양이거나 콘텐츠의 양이 적을 때는 'CSS3 Translate(3d) + CSS3 TimingFunction' 방식을 이용하는 것이 좋고, 하드웨어가 저사양이거나 콘텐츠의 양이 많을 때는 'CSS3 Translate(3d) + setTimeout을 통한 스크립트 방식'을 이용하는 것이 좋다.
