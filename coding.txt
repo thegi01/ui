@@ -2,3 +2,7 @@
 
 
 반면, 애니메이션 품질 측면에서는 'setTimeout을 통한 스크립트 방식'보다는 'CSS3 TimingFunction 방식'을 선택하는 것이 더 좋다.
+
+
+모바일 최적화
+https://github.com/cornerstonewdk/cornerstone-framework/blob/master/doc/2.%20Reference/2.%20Optimization.md
