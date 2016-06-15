@@ -43,6 +43,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	vertical-align: middle;
 	text-indent: -10000em;
+	pointer-events:none;
 	}
 	.ico-comm {
 
@@ -58,6 +59,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		.ico-x {
 			width: 12px; height: 12px;
 			background-color: green;
+		}
+		.ico-add {
+			width: 12px; height: 12px;
+			background-color: olive;
 		}
 /* component > search */
 .srch-form {
@@ -116,7 +121,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding-bottom: 1px;
 	font-size: 1px; line-height: 1px;
 }
-
+.srch-keyword .bt-addWord {
+	position: absolute; top: 0; right: 0;
+	width: 39px; height: 40px;
+	padding-bottom: 1px;
+	font-size: 1px; line-height: 1px;
+}
 .srch-keyword-footer {
 	overflow: hidden;
 	height: 38px;
@@ -150,7 +160,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrap">
 
 	<h2 class="screen-out">검색</h2>
 	<!-- 검색어 입력폼 -->
@@ -174,27 +184,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">제주</a>
 					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchItemDel" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">쿠팡</a>
 					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchItemDel"  class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">언제 언제 언제 언제 언제 언제 이이이이이ㅣ이이ㅣ이이이이ㅣ</a>
 					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchItemDel"  class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">제주</a>
 					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchItemDel"  class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">제주</a>
 					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchItemDel"  class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
 				</li>
 			</ul>
 			<div class="srch-keyword-footer">
@@ -212,28 +222,23 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			<ul class="srch-keyword-lst">
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">a</a>
-					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchAddWord" class="bt bt-addWord"><span class="ico ico-comm ico-add">단어추가</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">aaa</a>
-					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchAddWord" class="bt bt-addWord"><span class="ico ico-comm ico-add">단어추가</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">언제 언제 언제 언제 언제 언제 이이이이이ㅣ이이ㅣ이이이이ㅣ</a>
-					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchAddWord" class="bt bt-addWord"><span class="ico ico-comm ico-add">단어추가</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">제주</a>
-					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchAddWord" class="bt bt-addWord"><span class="ico ico-comm ico-add">단어추가</span></button>
 				</li>
 				<li class="srch-keyword-item">
 					<a href="#href" class="srch-keyword-a">제주</a>
-					<time datetime="2016-06-09" class="srch-keyword-date">06.09</time>
-					<button type="button" class="bt bt-delWord"><span class="ico ico-comm ico-x">단어삭제</span></button>
+					<button type="button" data-role="srchAddWord" class="bt bt-addWord"><span class="ico ico-comm ico-add">단어추가</span></button>
 				</li>
 			</ul>
 			<div class="srch-keyword-footer">
@@ -254,32 +259,59 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	var doc = document;
 
 	var srchInput = doc.getElementById('srchInput'),
-		btnReset = doc.getElementById('btnSrchReset'),
+		btnSrchReset = doc.getElementById('btnSrchReset'),
 		srchRecent = doc.getElementById('srchRecent'),
 		srchSuggest = doc.getElementById('srchSuggest');
+	/* srch input */
 	srchInput.onfocus = function(){
 		srchRecent.dataset.show = 'true';
 	};
 	srchInput.onkeyup = function(){
 		srchRecent.dataset.show = 'false';
 		srchSuggest.dataset.show = 'true';
-		btnReset.style.display = 'block';
+		btnSrchReset.style.display = 'block';
 	};
+	/* 최근 검색어 hide() */
 	doc.getElementById('btnSrchClse1').onclick = function(e){
 		e.preventDefault();
 		srchRecent.dataset.show = 'false';
 	};
+	/* 제안 검색어 hide() */
 	doc.getElementById('btnSrchClse2').onclick = function(e){
 		e.preventDefault();
 		srchSuggest.dataset.show = 'false';
 	};
-	btnReset.onclick = function(e){
+	/* input reset */
+	btnSrchReset.onclick = function(e){
 		e.preventDefault();
 		this.style.display = 'none';
 		srchInput.value = '';
 		srchSuggest.dataset.show = 'false';
 		srchRecent.dataset.show = 'true';
-	}
+	};
+	/* srch item del */
+	srchRecent.onclick = function(e){
+		e.preventDefault();
+		if(! (e.target.dataset.role == 'srchItemDel') ) return;
+		e.target.parentElement.remove();
+	};
+	/* Srch Add Word */
+	srchSuggest.onclick = function(e){
+		e.preventDefault();
+		if( (e.target.dataset.role == 'srchAddWord') ) {
+			srchInput.value = e.target.previousElementSibling.textContent;
+		} else if( e.target.classList.contains('srch-keyword-a') ) {
+			srchInput.value = e.target.textContent;
+		};
+		this.getElementsByTagName('ul')[0].remove();
+		this.getElementsByTagName('div')[0].remove();
+	};
+	/* srch Suggest All Remove */
+	doc.getElementById('btSrchRecentDel').onclick = function(e){
+		e.preventDefault();
+		srchRecent.getElementsByTagName('ul')[0].remove();
+		srchRecent.getElementsByTagName('div')[0].remove();
+	};
 </script>
 </body>
 </html>
