@@ -1,0 +1,486 @@
+@import 'reset';
+
+/* Variable */
+$font-stack : Helvetica, sans-serif;
+$primary-color : #333;
+body {
+	font : 100% $font-stack;
+	background-color: $primary-color;
+}
+
+$display-default : block;
+$color-point : #080;
+.lnk {
+	display : $display-default;
+	position : absolute;
+	left : 5px;
+	color : $color-point;
+}
+
+
+/* Nesting */
+nav {
+	ul {
+		margin : 0;
+		padding : 0;
+		list-style : none;
+	}
+	li {display:inline-block;}
+	a {
+		display : block;
+		padding : 6px 12px;
+		text-decoration : none;
+	}
+}
+
+// & : Referencing Parent Selecotrs(부모참조선택자)
+.info {
+	background : #fff;
+	&:before{
+		display : block;
+		content : '';
+	};
+	.tit {
+		font-size : 16px;
+	}
+	.lnk {
+		display : block;
+		margin-top : 9px;
+	}
+}
+.info {
+	background : #fff;
+	&.tit {
+		font-size : 16px;
+	}
+	body.test & {
+		font-size : 30px;
+	}
+}
+
+// Nested Propertis > namespaces
+.funcky {
+	font : {
+		family : fantasy;
+		size : 30em;
+		weight : bold;
+	}
+} 
+.funky2 {
+	font : 20px/24px fantasy {
+		weight : bold;
+	}
+}
+
+
+
+
+/* Mixins */
+// 선언 : @mixin minxin명(변수명){}
+// 호출 : @include mixin명(변수명){}
+@mixin border-radius($radius){
+	-webkit-border-radius : $radius;
+	-moz-border-radius : $radius;
+	-ms-border-radius : $radius;
+}
+.box {@include border-radius(10px);}
+
+$overflow_hidden : hidden;
+@mixin ellipsis {
+	overflow : $overflow_hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+}
+@mixin hide_txt {
+	display : inline-block;
+	overflow : $overflow_hidden;
+	line-height : 9999px;
+	vertical-align : top;
+}
+.title {
+	@include ellipsis;
+	color : #1b1f2a;
+}
+.sub_tit {
+	@include ellipsis;
+}
+.btn {
+	@include hide_txt;
+	width : 12px;
+	height : 8px;
+}
+.ico {
+	width : 4px;
+	height : 4px;
+	@include hide_txt;
+}
+
+@mixin title_style($size, $color:#080){
+	overflow : hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+	font-size : $size;
+	color : $color;
+}
+h1 {
+	@include title_style(16px, #000)
+}
+h2 {
+	@include title_style(14px)
+}
+
+@mixin large-text {
+	font : {
+		family : Arial;
+		size : 20px;
+		weight : bold;
+	}
+	color :  #ff0000;
+}
+
+@mixin clearfix {
+	display : inline-block;
+	&:after {
+		content : '';
+		display : block;
+		height : 0;
+		clear : both;
+		visibility:  hidden;
+	}
+	* html & {height: 1px;}
+}
+
+.page-title {
+	@include large-text;
+	padding : 4px;
+	margin-top: 10px;
+}
+
+@mixin silly-links {
+	a {
+		color : blue;
+		background-color : red;
+	}
+}
+@include silly-links;
+
+@mixin compound {
+	@include highlighted-background;
+	@include header-text;
+}
+@mixin highlighted-bakcground {background-color : #fco;}
+@mixin header-text {font-size:20px;}
+
+// Strings
+@mixin firefox-message($selector){
+	body.firefox #{$selector}:before {
+		content : "Hi, Firefox users!";
+	}
+}
+@include firefox-message(".header");
+
+
+/* Extend / Inheritance */
+.message {
+	border : 1px solid #ccc;
+	padding : 10px;
+	color: #333;
+}
+.success {
+	@extend .message;
+	border-color : green;
+}
+.error {
+	@extend .message;
+	border-color : red;
+}
+.warning {
+	@extend .message;
+	border-color : yellow;
+}
+
+// % : Placeholder Selectors
+.ico {
+	display : block;
+}
+%bg {
+	background:url(img/bg.gif) no-repeat;
+}
+.ico_new {
+	@extend .ico;
+	@extend %bg;
+	background : red;
+}
+.ico_qna {
+	@extend .ico;
+	@extend %bg;
+	background:black;
+}
+
+/* Minxin vs Extend 
+	minin : 공통된 속성을 클래스마다 넣어준다.
+	extend : 콤마(,) 선택자로 클래스들을 하나로 묶어서 한번만 넣어준다.
+*/
+
+
+
+/* Operators */
+.container {width:100%;}
+article[role="main"] {
+	float : left;
+	width : 600px / 960px * 100%;
+}
+aside[role="complementary"] {
+	float : right;
+	width : 300px / 960px * 100%;
+}
+
+/* Control Directives & Expressions */
+/* > if() */
+/* > @if */
+p {
+	@if 1+1 == 2 {border : 1px solid;}
+	@if 5<3 {border : 2px dotted;}
+	@if null {border: 3px double;}
+}
+$type : monster;
+p {
+	@if $type == ocean {
+		color : blue;
+	} @else if &type == matador {
+		color : red;
+	} @else if &type == monter {
+		color : green;
+	} @else {
+		color : black;
+	}
+}
+/* > @for */
+@for $i from 1 through 3 {
+	.item-#{$i} { width:2em * $i};
+}
+
+/* > @each */
+@each $animal in puma, sea-slug, egret, slamander {
+	.#{$animal}-icon {
+		background-image : url('/images/#{$animal}.png');
+	}
+}
+// Mutltiple Assignment
+@each $animal, $color, $cursor in (puma, black, default), 
+									(sea-slug, blue, pointer),
+									(egret, white, move){
+	.#{$animal}-icon {
+		background-image : url('/images/#{$animal}.png');
+		border : solid 2px $color;
+		cursor: $cursor;
+	}
+} 
+// Since maps are treated as lists of pairs, multiple assignment works with them as well
+@each $header, $size in (h1:2em, h2:1.5em, h3:1.2em){
+	#{$header} {
+		font-size: $size;
+	}
+}
+
+/* > @while */
+$i : 6;
+@while $i > 0 {
+	.item-#{$i} { width: 2em * $i;}
+	$i : $i - 2;
+}
+
+
+/* Arguments */
+@mixin sexy-border($color, $width:1in){
+	border : {
+		color : $color;
+		width : $width;
+		style : dashed;
+	}
+}
+p {@include sexy-border(blue);}
+h1 {@include sexy-border(blue, 2in);}
+// Keyword Arguments
+p {@include sexy-border($color:blue);}
+h1 {@include sexy-border($color:blue, $width:2in);}
+// Variable Arguments
+@mixin box-shadow($shadows...){
+	-moz-box-shadow : $shadows;
+	-webkit-box-shadow : $shadows;
+	box-shadow : $shadows;
+}
+.shadows {
+	@include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+@mixin colors($text, $background, $border){
+	color : $text;
+	background-color : $background;
+	border-color : $border;
+}
+$values : #ff0000, #00ff00, #0000ff;
+.primary {
+	@include colors($values...);
+}
+$value-map : (text:#00ff00, background :#0000ff, border : #ff0000);
+.secondary {
+	@include colors($value-map...);
+}
+
+/* Interpolation */
+// #{}
+// You can also use SassScript variables in selectors and property names using #{} interpolation syntax;
+$name : foo;
+$attr : border;
+p.#{$name} {
+	#{$attr}-color : blue;
+}
+p {
+	$font-size : 12px;
+	$line-height : 30px;
+	font : #{$font-size} / #{$line-height};
+}
+/* & in SassScript */
+.foo.bar .baz.bang, .bip.qux {
+	$selector : &;
+}
+@mixin does-parent-exist {
+	@if & {
+		&:hover {
+			color : red;
+		}
+	} @else {
+		a {
+			color :red;
+		}
+	}
+}
+
+/* Variable Defaults : !default */
+$content : "First content";
+$content : "Second content?" !default;
+$new_content : "First time reference" !default;
+#main {
+	content : $content;
+	new-contetnt : $new_content;
+}
+$content : null;
+$content : "Non-null content" !default;
+#main {
+	content : $content;
+}
+
+/* media  */
+.sidebar {
+	width : 300px;
+	@media screen and (orientation:landscape){
+		width : 500px;
+	}
+}
+@media screen {
+	.sidebar {
+		@media ( orientation : landscape) {
+			width : 500px;
+		}
+	}
+}
+$media : screen;
+$feature : -webkit-min-device-pixel-ratio;
+$value : 1.5;
+@media #{$media} and ($feature:$value){
+	.sidebar {
+		width : 500px;
+	}
+}
+
+
+/* @extend */
+.error {
+	border : 1px #f00;
+	background-color : #ddd;
+}
+.error.intrusion {
+	background-image:url('/image/hacked.png');
+}
+.seriousError {
+	@extend .error;
+	border-width : 3px;
+}
+// Extending Complex Selectors
+.hoverlink {
+	@extend a:hover;
+}
+a:hover {
+	text-decoration: underline;
+}
+.comment a.user:hover {
+	font-weight:bold;
+}
+
+// Multiple Extends
+.error {
+	border:1px #f00;
+	background-color : #fdd;
+}
+.attention {
+	font-size : 3em;
+	background-color : #ff;
+}
+.seriousError {
+	@extend .error;
+	@extend .attention;
+	border-width : 3px;
+}
+
+// Chaining Etends
+.errort {
+	border:1px #f00;
+	background-color : #fdd;
+}
+.serousErrort {
+	@extend .errort;
+	border-width : 3px;
+}
+.criticalErrort {
+	@extend .serousErrort;
+	position : fixed; top: 10%; bottom : 10%; left:10%; right : 10%; }
+
+// Selector Sequences
+#fake-links .link {
+	@extend .fake-links;
+}
+.fake-links {
+	color : blue;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+/* @extend-Only Selectors */
+#context a%extreme {
+	color : blue;
+	font-weight: bold;
+	font-size: 2em;
+}
+.notice {
+	@extend %extreme;
+}
+
+/* style 종류 
+중첩(nested) : sass의 기본 스타일로 html 문서처럼 부모요소에 대한 하위요소는 들여쓰기 되는 형식
+확장(expanded) : 일반적인 css 스타일로 선탁자에 따라 속성이 들여쓰기 되는 형식
+축약(compact) : 업무에서 가장 많이 사용되는 스타일로 한줄씩 출력되는 스타일
+
+명령어 : sass -style compact test.scss test.css
+
+--watch : 수정할 때마다 명령어를 실행하기 번거롭다면 --watch 활용
+sass --watch (작성된)파일명.scss
+sass --watch --style종류 (작성된)파일명.scss
+
+sass --watch foler:foledr --style compressed
+*/
+
+
+
+

@@ -1,0 +1,363 @@
+@charset "UTF-8";
+html,
+body,
+ul,
+ol {
+  margin: 0;
+  padding: 0; }
+
+/* Variable */
+body {
+  font: 100% Helvetica, sans-serif;
+  background-color: #333; }
+
+.lnk {
+  display: block;
+  position: absolute;
+  left: 5px;
+  color: #080; }
+
+/* Nesting */
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+nav li {
+  display: inline-block; }
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none; }
+
+.info {
+  background: #fff; }
+  .info:before {
+    display: block;
+    content: ''; }
+  .info .tit {
+    font-size: 16px; }
+  .info .lnk {
+    display: block;
+    margin-top: 9px; }
+
+.info {
+  background: #fff; }
+  .info.tit {
+    font-size: 16px; }
+  body.test .info {
+    font-size: 30px; }
+
+.funcky {
+  font-family: fantasy;
+  font-size: 30em;
+  font-weight: bold; }
+
+.funky2 {
+  font: 20px/24px fantasy;
+    font-weight: bold; }
+
+/* Mixins */
+.box {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px; }
+
+.title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #1b1f2a; }
+
+.sub_tit {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.btn {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 9999px;
+  vertical-align: top;
+  width: 12px;
+  height: 8px; }
+
+.ico, .ico_new, .ico_qna {
+  width: 4px;
+  height: 4px;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 9999px;
+  vertical-align: top; }
+
+h1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  color: #000; }
+
+h2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  color: #080; }
+
+.page-title {
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff0000;
+  padding: 4px;
+  margin-top: 10px; }
+
+a {
+  color: blue;
+  background-color: red; }
+
+body.firefox .header:before {
+  content: "Hi, Firefox users!"; }
+
+/* Extend / Inheritance */
+.message, .success, .error, .seriousError, .warning {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333; }
+
+.success {
+  border-color: green; }
+
+.error, .seriousError {
+  border-color: red; }
+
+.warning {
+  border-color: yellow; }
+
+.ico, .ico_new, .ico_qna {
+  display: block; }
+
+.ico_new, .ico_qna {
+  background: url(img/bg.gif) no-repeat; }
+
+.ico_new {
+  background: red; }
+
+.ico_qna {
+  background: black; }
+
+/* Minxin vs Extend 
+	minin : 공통된 속성을 클래스마다 넣어준다.
+	extend : 콤마(,) 선택자로 클래스들을 하나로 묶어서 한번만 넣어준다.
+*/
+/* Operators */
+.container {
+  width: 100%; }
+
+article[role="main"] {
+  float: left;
+  width: 62.5%; }
+
+aside[role="complementary"] {
+  float: right;
+  width: 31.25%; }
+
+/* Control Directives & Expressions */
+/* > if() */
+/* > @if */
+p {
+  border: 1px solid; }
+
+p {
+  color: red; }
+
+/* > @for */
+.item-1 {
+  width: 2em; }
+
+.item-2 {
+  width: 4em; }
+
+.item-3 {
+  width: 6em; }
+
+/* > @each */
+.puma-icon {
+  background-image: url("/images/puma.png"); }
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png"); }
+
+.egret-icon {
+  background-image: url("/images/egret.png"); }
+
+.slamander-icon {
+  background-image: url("/images/slamander.png"); }
+
+.puma-icon {
+  background-image: url("/images/puma.png");
+  border: solid 2px black;
+  cursor: default; }
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+  border: solid 2px blue;
+  cursor: pointer; }
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+  border: solid 2px white;
+  cursor: move; }
+
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1.2em; }
+
+/* > @while */
+.item-6 {
+  width: 12em; }
+
+.item-4 {
+  width: 8em; }
+
+.item-2 {
+  width: 4em; }
+
+/* Arguments */
+p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed; }
+
+h1 {
+  border-color: blue;
+  border-width: 2in;
+  border-style: dashed; }
+
+p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed; }
+
+h1 {
+  border-color: blue;
+  border-width: 2in;
+  border-style: dashed; }
+
+.shadows {
+  -moz-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  box-shadow: 0px 4px 5px #666, 2px 6px 10px #999; }
+
+.primary {
+  color: #ff0000;
+  background-color: #00ff00;
+  border-color: #0000ff; }
+
+.secondary {
+  color: #00ff00;
+  background-color: #0000ff;
+  border-color: #ff0000; }
+
+/* Interpolation */
+p.foo {
+  border-color: blue; }
+
+p {
+  font: 12px / 30px; }
+
+/* & in SassScript */
+/* Variable Defaults : !default */
+#main {
+  content: "First content";
+  new-contetnt: "First time reference"; }
+
+#main {
+  content: "Non-null content"; }
+
+/* media  */
+.sidebar {
+  width: 300px; }
+  @media screen and (orientation: landscape) {
+    .sidebar {
+      width: 500px; } }
+
+@media screen and (orientation: landscape) {
+  .sidebar {
+    width: 500px; } }
+
+@media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .sidebar {
+    width: 500px; } }
+/* @extend */
+.error, .seriousError {
+  border: 1px #f00;
+  background-color: #ddd; }
+
+.error.intrusion, .intrusion.seriousError {
+  background-image: url("/image/hacked.png"); }
+
+.seriousError {
+  border-width: 3px; }
+
+a:hover, .hoverlink {
+  text-decoration: underline; }
+
+.comment a.user:hover, .comment .user.hoverlink {
+  font-weight: bold; }
+
+.error, .seriousError {
+  border: 1px #f00;
+  background-color: #fdd; }
+
+.attention, .seriousError {
+  font-size: 3em;
+  background-color: #ff; }
+
+.seriousError {
+  border-width: 3px; }
+
+.errort, .serousErrort, .criticalErrort {
+  border: 1px #f00;
+  background-color: #fdd; }
+
+.serousErrort, .criticalErrort {
+  border-width: 3px; }
+
+.criticalErrort {
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%; }
+
+.fake-links, #fake-links .link {
+  color: blue; }
+  .fake-links:hover, #fake-links .link:hover {
+    text-decoration: underline; }
+
+/* @extend-Only Selectors */
+#context a.notice {
+  color: blue;
+  font-weight: bold;
+  font-size: 2em; }
+
+/* style 종류 
+중첩(nested) : sass의 기본 스타일로 html 문서처럼 부모요소에 대한 하위요소는 들여쓰기 되는 형식
+확장(expanded) : 일반적인 css 스타일로 선탁자에 따라 속성이 들여쓰기 되는 형식
+축약(compact) : 업무에서 가장 많이 사용되는 스타일로 한줄씩 출력되는 스타일
+
+명령어 : sass -style compact test.scss test.css
+
+--watch : 수정할 때마다 명령어를 실행하기 번거롭다면 --watch 활용
+sass --watch (작성된)파일명.scss
+sass --watch --style종류 (작성된)파일명.scss
+
+sass --watch foler:foledr --style compressed
+*/
+
+/*# sourceMappingURL=base.css.map */
