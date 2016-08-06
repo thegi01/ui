@@ -167,12 +167,12 @@ doc.getElementById('menuBtnNext').onclick = function(){
 };
 
 /* slider */
-$travel = doc.getElementById('travel');
+/*$travel = doc.getElementById('travel');
 $travel.idxCtrl = new idxCtrl(
 	$travel, 
 	doc.getElementById('travelPaging').getElementsByTagName('li')
 );
-$travel.idxCtrl.itemEvt('onclick');
+$travel.idxCtrl.itemEvt('onclick');*/
 /*doc.getElementById('tarvelBtnPrev').onclick = function(){
 	doc.getElementById('travel-cnts').style.transform = 'translate3d(300px, 0px, 0px)';
 	doc.getElementById('travel-cnts').style.transitionDuration = '500ms';
