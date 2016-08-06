@@ -9,15 +9,32 @@ var i,
 	setCurrentIdx,
 	prevNext,
 	getIdxByDirection,
-	autoPlayChk,
+	// autoPlayChk,
 	autoPlay,
 	play,
 	pause,
 	clearTime;
 
+setItems = function(items, direction, autoPlay){
+	this.items = items;
+	this.itemsLen = this.items.length;
+	if(direction) {
+		getCurrentIdx.call(this);
+		this.direction = 'next';
+	};
+	if(autoPlay) {
+		this.auto = 'false';
+		this.timer = 3000;
+	};
+};
+getCurrentIdx = function(){
+	this.idx = this.dataset.current;
+};
+setCurrentIdx = function(){
+	this.dataset.current = this.idx;
+};
 changeCurrent = function(items, evtType, direction, autoPlay){
 	setItems.call(this, items, direction, autoPlay);
-	getCurrentIdx.call(this); // prev, next
 	var self = this;
 	for( i=0 ; i < this.itemsLen ; i++ ){
 		this.items[i][evtType] = function(){
@@ -26,31 +43,19 @@ changeCurrent = function(items, evtType, direction, autoPlay){
 		};
 	};
 };
-setItems = function(items, direction, autoPlay){
-	this.items = items;
-	this.itemsLen = this.items.length;
-	if(direction)
-		this.direction = 'next';
-	if(autoPlay) {
-		this.auto = 'false';
-		this.timer = 3000;
-	}
-};
-getCurrentIdx = function(){
-	this.idx = this.dataset.current;
-};
-setCurrentIdx = function(){
-	this.dataset.current = this.idx;
-};
 prevNext = function(d, n){
 	this.direction = d;
-	autoPlayChk.call(this);
+	// autoPlayChk.call(this);
+	if( this.auto == true ) {
+		clearInterval(this.interval);
+		play.call(this);
+	};
 	getIdxByDirection.call(this, n);
 	setCurrentIdx.call(this);
 };
 getIdxByDirection = function(n){
 	var d = this.direction,
-		idx = this.idx,
+		idx = Number(this.idx),
 		val = this.itemsLen-1;
 	if( d == "prev" ){
 		if(n) 
@@ -72,12 +77,6 @@ getIdxByDirection = function(n){
 			idx = 0;
 	};
 	this.idx = idx;
-};
-autoPlayChk = function(){
-	if( this.auto == true ) {
-		clearInterval(this.interval);
-		play.call(this);
-	};
 };
 autoPlay = function(timer){
 	if(timer) 
@@ -106,8 +105,9 @@ var doc = document,
 	$news,
 	$srchId,
 	$season, 
+	$menu;
 
-/* Tabs > news */
+/* news */
 $news = doc.getElementById('news');
 changeCurrent.call(
 	$news, 
@@ -115,7 +115,7 @@ changeCurrent.call(
 	'onclick'
 );
 
-/* Tabs > srchId */
+/* srchId */
 $srchId = doc.getElementById('srchId');
 changeCurrent.call(
 	$srchId,
@@ -123,7 +123,7 @@ changeCurrent.call(
 	'onchange'
 );
 
-/* Tabs > season */
+/* season */
 $season = doc.getElementById('season');
 changeCurrent.call(
 	$season,
@@ -142,7 +142,21 @@ doc.getElementById('seasonBtnPause').onclick = function(){
 	pause.call($season);
 };
 doc.getElementById('seasonBtnPlay').onclick = function(){
-	autoPlay.call($season, 1000);
+	autoPlay.call($season, 3000);
 };
-autoPlay.call($season, 1000);
+autoPlay.call($season, 3000);
+
+/* menu */
+$menu = doc.getElementById('menu');
+setItems.call(
+	$menu, 
+	$menu.getElementsByTagName('li'),
+	true
+);
+doc.getElementById('menuBtnPrev').onclick = function(){
+	prevNext.call($menu, 'prev', 3);
+};
+doc.getElementById('menuBtnNext').onclick = function(){
+	prevNext.call($menu, 'next', 3);
+};
 
