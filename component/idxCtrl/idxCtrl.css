@@ -95,13 +95,14 @@ a:hover {
 
 /* tabs > season */ 
 .season__tabs {
-	height: 5em;
+	height: 12em;
 }
 .season__tabs .tabs-cnts {
 	top: 2em; right: 3em; left: 3em;
-	width: auto; height: 100%;
+	width: auto; height: 8em;
 	text-align: center;
 	background-color: #ccc;
+	line-height: 8em;
 }
 .season__tabs .tabs-item {
 	width:25%;
@@ -113,7 +114,7 @@ a:hover {
 .season__tabs .tabs-btn-prev,
 .season__tabs .tabs-btn-next {
 	position: absolute;
-	top:55%;
+	top:45%;
 }
 .season__tabs .tabs-btn-prev {
 	left: 0;
@@ -121,11 +122,24 @@ a:hover {
 .season__tabs .tabs-btn-next {
 	right: 0;
 }
+.season__tabs .tabs-btns-playPause {
+	clear: both;
+	position: absolute; bottom: 0;
+	width: 100%;
+	text-align: center;
+}
+.season__tabs .tabs-btn-pause,
+.season__tabs .tabs-btn-play {
+	display: none;
+}
 .season__tabs[data-current="0"] .tabs-item[data-idx="0"] .tabs-item-lnk,
 .season__tabs[data-current="1"] .tabs-item[data-idx="1"] .tabs-item-lnk,
 .season__tabs[data-current="2"] .tabs-item[data-idx="2"] .tabs-item-lnk,
 .season__tabs[data-current="3"] .tabs-item[data-idx="3"] .tabs-item-lnk,
 .season__tabs[data-current="4"] .tabs-item[data-idx="4"] .tabs-item-lnk {
-	color : #a94442;
+	color : green;
 }
-
+.season__tabs[data-auto="true"] .tabs-btn-pause,
+.season__tabs[data-auto="false"] .tabs-btn-play {
+	display: inline-block;
+}
