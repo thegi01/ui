@@ -13,7 +13,8 @@ if ( isIE() == 8 ) { isIE8 = true; }
 
 var dataAttr, hasDataAttr, getDataAttr, setDataAttr,
 	tabsCtrl,
-	util;
+	util,
+	IELow;
 
 dataAttr = {
 	'true' : {
@@ -156,8 +157,13 @@ util = {
 		} else if(e.addEventListener){
 			e.addEventListener(type, handler);
 		};
+	},
+	evtChange : {
+		'true' : 'click',
+		'false' : 'change'
 	}
 };
+
 
 /*_____ Tabs.html _____*/
 
@@ -175,7 +181,7 @@ tabsCtrl.tabs($news , 'click', 'H4', 'parentElement');
 /* srchId */
 $srchId = doc.getElementById('srchId');
 tabsCtrl.init($srchId, $srchId.getElementsByTagName('input'));
-tabsCtrl.tabs($srchId , 'click', 'INPUT'); // IE8
+tabsCtrl.tabs($srchId , util.evtChange[isIE8] , 'INPUT'); 
 
 
 /* season */
