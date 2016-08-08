@@ -7,15 +7,11 @@ var isIE,
 isIE = function(){
 	var myNav = navigator.userAgent.toLowerCase();
 	return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
-}
+};
 if ( isIE() == 8 ) { isIE8 = true; }
 
 
-var dataAttr, hasDataAttr, getDataAttr, setDataAttr,
-	tabsCtrl,
-	util,
-	IELow;
-
+var dataAttr, hasDataAttr, getDataAttr, setDataAttr;
 dataAttr = {
 	'true' : {
 		get : function(el, attr){
@@ -38,8 +34,7 @@ hasDataAttr = 'dataset' in document.body;
 getDataAttr = dataAttr[hasDataAttr].get;
 setDataAttr = dataAttr[hasDataAttr].set;
 
-
-tabsCtrl = {
+var tabsCtrl = {
 	init : function(el, items, direction, autoPlay){
 		el.items = items;
 		el.itemsLen = el.items.length;
@@ -52,15 +47,17 @@ tabsCtrl = {
 			el.timer = 3000;
 		};
 	},
-	tabs : function(el, evtType, tagName, target){
+	tabs : function(el, evtType, target){
 		var self = this;
-		util.addEvent(el, evtType, function(e){
-			var t = util.getTarget(e);
-			if( target )
-				t = t[target];
-			if( t.tagName != tagName ) 
+		isLower.addEvent(el, evtType, function(e){
+			var t = isLower.getTarget(e);
+			if(t.tagName == 'A') 						// e.preventDefault();
+				isLower.prevent(); 
+			if( target ) 								// get idx target 설정
+				t = t[target]; 
+			if(getDataAttr(t, 'role') != 'tabsItem')  	// 이벤트 타겟 검증
 				return;
-			if( el.auto ) {
+			if( el.auto ) {  							// auto play
 				clearInterval(el.interval);
 				self.play(el);
 			};
@@ -83,12 +80,9 @@ tabsCtrl = {
 	},
 	setCurrent : function(el, idx){
 		setDataAttr(el, 'current', idx);
-		if(isIE8)
+		if(isIE8)	// In IE8, css doesn't apply 
 			el.className = el.className;
 	},
-
-
-
 
 
 	prevNext : function(el, d, n){
@@ -146,21 +140,23 @@ tabsCtrl = {
 	}
 };
 
-
-util = {
+var isLower = {
 	getTarget : function(e){
 		return e.target || e.srcElement;
 	},
 	addEvent : function(e, type, handler){
-		if(e.attachEvent){
+		if(isIE8 && type == 'change')
+			type = 'click';
+		if(e.attachEvent)
 			e.attachEvent("on" + type, handler);
-		} else if(e.addEventListener){
+		else /*if(e.addEventListener)*/
 			e.addEventListener(type, handler);
-		};
 	},
-	evtChange : {
-		'true' : 'click',
-		'false' : 'change'
+	prevent : function(){
+		if(event.preventDefault)
+			event.preventDefault();
+		else
+			event.returnValue = false;
 	}
 };
 
@@ -176,18 +172,17 @@ var doc = document,
 /* news */
 $news = doc.getElementById('news');
 tabsCtrl.init($news, $news.getElementsByTagName('h4'));
-tabsCtrl.tabs($news , 'click', 'H4', 'parentElement');
+tabsCtrl.tabs($news , 'click', 'parentElement');
 
 /* srchId */
 $srchId = doc.getElementById('srchId');
 tabsCtrl.init($srchId, $srchId.getElementsByTagName('input'));
-tabsCtrl.tabs($srchId , util.evtChange[isIE8] , 'INPUT'); 
-
+tabsCtrl.tabs($srchId , 'change');  
 
 /* season */
 $season = doc.getElementById('season');
 tabsCtrl.init($season, $season.getElementsByTagName('h4'), true, true);
-tabsCtrl.tabs($season , 'click', 'H4', 'parentElement');
+tabsCtrl.tabs($season , 'click', 'parentElement');
 doc.getElementById('seasonBtnPrev').onclick = function(){
 	tabsCtrl.prevNext($season, getDataAttr(this, 'direction'));
 };
