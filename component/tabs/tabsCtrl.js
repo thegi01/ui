@@ -56,7 +56,7 @@ tabsCtrl = {
 		util.addEvent(el, evtType, function(e){
 			var t = util.getTarget(e);
 			if( target )
-				 t = t[target]
+				t = t[target];
 			if( t.tagName != tagName ) 
 				return;
 			if( el.auto ) {
@@ -175,7 +175,8 @@ tabsCtrl.tabs($news , 'click', 'H4', 'parentElement');
 /* srchId */
 $srchId = doc.getElementById('srchId');
 tabsCtrl.init($srchId, $srchId.getElementsByTagName('input'));
-tabsCtrl.tabs($srchId , 'change', 'INPUT');
+tabsCtrl.tabs($srchId , 'click', 'INPUT'); // IE8
+
 
 /* season */
 $season = doc.getElementById('season');
