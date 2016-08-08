@@ -134,11 +134,14 @@ $srchId.idxCtrl.itemEvt('onchange');
 
 /* idxCtrl > season */
 $season = doc.getElementById('season');
+var t1 = performance.now();
 $season.idxCtrl = new idxCtrl(
 	$season, 
 	$season.getElementsByTagName('h4')
 );
 $season.idxCtrl.itemEvt('onclick');
+var t2 = performance.now();
+console.log (t2-t1);
 doc.getElementById('seasonBtnPrev').onclick = function(){
 	$season.idxCtrl.prevNext('prev');
 };
