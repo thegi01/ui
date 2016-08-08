@@ -3,15 +3,11 @@
 /*_____ UI Script _____*/
 
 var i,
-	tabs,
-	prevNext,
-	getIdxByDirection,
-	autoPlay,
-	play,
-	pause,
-	clearTime;
+	dataAttr, hasDataAttr, getDataAttr, setDataAttr,
+	tabsCtrl,
+	util;
 
-var dataset = {
+dataAttr = {
 	'true' : {
 		get : function(el, attr){
 			return el.dataset[attr];
@@ -22,21 +18,24 @@ var dataset = {
 	},
 	'false' : {
 		get : function(el, attr){
-			return el.getAttribute('dataset'+ attr);
+			return el.getAttribute('data-'+ attr);
 		},
 		set : function(el, attr, val){
 			el.setAttribute('data-' + attr, val);
 		}
 	}
 };
-var hasDataset = 'dataset' in document.body;
+hasDataAttr = 'dataset' in document.body;
+// hasDataAttr = 'false';
+getDataAttr = dataAttr[hasDataAttr].get;
+setDataAttr = dataAttr[hasDataAttr].set;
 
-var dataCtrl = {
+tabsCtrl = {
 	setItems : function(el, items, direction, autoPlay){
 		el.items = items;
 		el.itemsLen = el.items.length;
 		if(direction) {
-			el.idx = dataset[hasDataset].get(el, 'current');
+			el.idx = getDataAttr(el, 'current');
 			el.direction = 'next';
 		};
 		if(autoPlay) {
@@ -44,18 +43,36 @@ var dataCtrl = {
 			el.timer = 3000;
 		};
 	},
-	tabs : function(el, items, evtType, direction, autoPlay){
-		this.setItems(el, items, direction, autoPlay);
-		el.addEventListener('click', function(e){
-			console.log(e.target);
-		}, false);
+	tabs : function(el, evtType, tagName, target){
+		var self = this;
+		util.addEvent(el, evtType, function(e){
+			var _target = (target) ? e.target[target] : e.target;
+			if(_target.tagName != tagName) return;
+			if( el.auto ) {
+				clearInterval(el.interval);
+				self.play(el);
+			};
+			el.idx = Number( getDataAttr(_target, 'idx') );
+			self.setCurrent(el, el.idx);
+			// setDataAttr(el, 'current', el.idx);
+		});
+		/*el.addEventListener(evtType, function(e){
+			var _target = (target) ? e.target[target] : e.target;
+			if(_target.tagName != tagName) return;
+			el.idx = Number( getDataAttr(_target, 'idx') );
+			setDataAttr(el, 'current', el.idx);
+		}, false);*/
 		/*var self = this;
 		for( i=0 ; i < el.itemsLen ; i++ ){
 			el.items[i][evtType] = function(){
 				el.idx =  Number( this.dataset.idx );
-				dataset[hasDataset].set(el, 'current', el.idx);
+				setDataAttr(el, 'current', el.idx);
 			};
 		};*/
+	},
+	setCurrent : function(el, idx){
+		setDataAttr(el, 'current', idx);
+		el.classList.add('current' + idx);
 	},
 	prevNext : function(el, d, n){
 		el.direction = d;
@@ -64,7 +81,7 @@ var dataCtrl = {
 			this.play(el);
 		};
 		this.getIdxByDirection(el, n);
-		dataset[hasDataset].set(el, 'current', el.idx);
+		setDataAttr(el, 'current', el.idx);
 	},
 	getIdxByDirection : function(el, n){
 		var d = el.direction,
@@ -102,7 +119,7 @@ var dataCtrl = {
 		var self = this;
 		el.interval = setInterval(function(){
 			self.getIdxByDirection(el);
-			dataset[hasDataset].set(el, 'current', el.idx);
+			setDataAttr(el, 'current', el.idx);
 		}, el.timer);
 	},
 	pause : function(el){
@@ -111,6 +128,16 @@ var dataCtrl = {
 		el.dataset.auto = false;
 	}
 };
+
+util = {
+	addEvent : function(element, type, handler){
+		if(element.attachEvent){
+			element.attachEvent("on" + type, handler);
+		} else if(element.addEventListener){
+			element.addEventListener(type, handler);
+		};
+	}
+}
 
 /*_____ Tabs.html _____*/
 
@@ -122,54 +149,43 @@ var doc = document,
 
 /* news */
 $news = doc.getElementById('news');
-dataCtrl.tabs(
-	$news, 
-	$news.getElementsByTagName('h4'),
-	'onclick'
-);
+tabsCtrl.setItems($news, $news.getElementsByTagName('h4'));
+tabsCtrl.tabs($news , 'click', 'H4', 'parentElement');
 
 /* srchId */
 $srchId = doc.getElementById('srchId');
-dataCtrl.tabs(
-	$srchId,
-	$srchId.getElementsByTagName('input'),
-	'onchange'
-);
+tabsCtrl.setItems($srchId, $srchId.getElementsByTagName('input'));
+tabsCtrl.tabs($srchId , 'change', 'INPUT');
 
 /* season */
 $season = doc.getElementById('season');
-dataCtrl.tabs(
-	$season,
-	$season.getElementsByTagName('h4'),
-	'onclick',
-	true, // directon
-	true  // auto
-);
+tabsCtrl.setItems($season, $season.getElementsByTagName('h4'), true, true);
+tabsCtrl.tabs($season , 'click', 'H4', 'parentElement');
 doc.getElementById('seasonBtnPrev').onclick = function(){
-	dataCtrl.prevNext($season, this.dataset.direction);
+	tabsCtrl.prevNext($season, this.dataset.direction);
 };
 doc.getElementById('seasonBtnNext').onclick = function(){
-	dataCtrl.prevNext($season, this.dataset.direction);
+	tabsCtrl.prevNext($season, this.dataset.direction);
 };
 doc.getElementById('seasonBtnPause').onclick = function(){
-	dataCtrl.pause($season);
+	tabsCtrl.pause($season);
 };
 doc.getElementById('seasonBtnPlay').onclick = function(){
-	dataCtrl.autoPlay($season, 3000);
+	tabsCtrl.autoPlay($season, 3000);
 };
-dataCtrl.autoPlay($season, 3000);
+tabsCtrl.autoPlay($season, 3000);
 
 /* menu */
 $menu = doc.getElementById('menu');
-dataCtrl.setItems(
+tabsCtrl.setItems(
 	$menu, 
 	$menu.getElementsByTagName('li'),
 	true
 );
 doc.getElementById('menuBtnPrev').onclick = function(){
-	dataCtrl.prevNext($menu, 'prev', 3);
+	tabsCtrl.prevNext($menu, 'prev', 3);
 };
 doc.getElementById('menuBtnNext').onclick = function(){
-	dataCtrl.prevNext($menu, 'next', 3);
+	tabsCtrl.prevNext($menu, 'next', 3);
 };
 
