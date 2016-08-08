@@ -17,7 +17,7 @@ a:hover {
 }
 .h3-1 {
 	padding : 0.3em 0 0.3em 1em;
-	border-left : solid 2px #a94442;
+	border-left : solid 2px green;
 	vertical-align: middle;
 }
 .btn {
@@ -79,7 +79,7 @@ a:hover {
 .news__tabs[data-current="2"] .tabs-item[data-idx="2"] .tabs-item-lnk,
 .news__tabs[data-current="3"] .tabs-item[data-idx="3"] .tabs-item-lnk,
 .news__tabs[data-current="4"] .tabs-item[data-idx="4"] .tabs-item-lnk {
-	color : #a94442;
+	color : green;
 }
 
 /* tabs > srchId */

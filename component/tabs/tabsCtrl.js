@@ -2,8 +2,16 @@
 
 /*_____ UI Script _____*/
 
-var i,
-	dataAttr, hasDataAttr, getDataAttr, setDataAttr,
+var isIE,
+	isIE8 = false;
+isIE = function(){
+	var myNav = navigator.userAgent.toLowerCase();
+	return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+}
+if ( isIE() == 8 ) { isIE8 = true; }
+
+
+var dataAttr, hasDataAttr, getDataAttr, setDataAttr,
 	tabsCtrl,
 	util;
 
@@ -21,17 +29,17 @@ dataAttr = {
 			return el.getAttribute('data-'+ attr);
 		},
 		set : function(el, attr, val){
-			el.setAttribute('data-' + attr, val);
+			el.setAttribute('data-' + attr, val);			
 		}
 	}
 };
 hasDataAttr = 'dataset' in document.body;
-// hasDataAttr = 'false';
 getDataAttr = dataAttr[hasDataAttr].get;
 setDataAttr = dataAttr[hasDataAttr].set;
 
+
 tabsCtrl = {
-	setItems : function(el, items, direction, autoPlay){
+	init : function(el, items, direction, autoPlay){
 		el.items = items;
 		el.itemsLen = el.items.length;
 		if(direction) {
@@ -46,16 +54,17 @@ tabsCtrl = {
 	tabs : function(el, evtType, tagName, target){
 		var self = this;
 		util.addEvent(el, evtType, function(e){
-			var _target = (target) ? e.target[target] : e.target,
-				oldIdx = el.idx;
-			if(_target.tagName != tagName) return;
+			var t = util.getTarget(e);
+			if( target )
+				 t = t[target]
+			if( t.tagName != tagName ) 
+				return;
 			if( el.auto ) {
 				clearInterval(el.interval);
 				self.play(el);
 			};
-			el.idx = Number( getDataAttr(_target, 'idx') );
-			self.setCurrent(el, el.idx, oldIdx);
-			// setDataAttr(el, 'current', el.idx);
+			el.idx = Number( getDataAttr(t, 'idx') );
+			self.setCurrent(el, el.idx);
 		});
 		/*el.addEventListener(evtType, function(e){
 			var _target = (target) ? e.target[target] : e.target;
@@ -71,14 +80,16 @@ tabsCtrl = {
 			};
 		};*/
 	},
-	setCurrent : function(el, idx, oldIdx){
+	setCurrent : function(el, idx){
 		setDataAttr(el, 'current', idx);
-		var _className = el.id + '__current-';
-		util.removeClass(el, _className + oldIdx);
-		util.addClass(el, _className + idx);
-		/*el.classList.remove(_cn + oldIdx);
-		el.classList.add(_cn + idx);*/
+		if(isIE8)
+			el.className = el.className;
 	},
+
+
+
+
+
 	prevNext : function(el, d, n){
 		el.direction = d;
 		if( el.auto ) {
@@ -86,7 +97,7 @@ tabsCtrl = {
 			this.play(el);
 		};
 		this.getIdxByDirection(el, n);
-		setDataAttr(el, 'current', el.idx);
+		this.setCurrent(el, el.idx);
 	},
 	getIdxByDirection : function(el, n){
 		var d = el.direction,
@@ -116,39 +127,37 @@ tabsCtrl = {
 	autoPlay : function(el, timer){
 		if(timer) 
 			el.timer = timer;
-		el.auto = true;
-		el.dataset.auto = true;
+		el.auto = true;		
+		setDataAttr(el, 'auto', true);
 		this.play(el);
 	},
 	play : function(el){
 		var self = this;
 		el.interval = setInterval(function(){
 			self.getIdxByDirection(el);
-			setDataAttr(el, 'current', el.idx);
+			self.setCurrent(el, el.idx);
 		}, el.timer);
 	},
 	pause : function(el){
 		clearInterval(el.interval);
 		el.auto = false;
-		el.dataset.auto = false;
+		setDataAttr(el, 'auto', false);
 	}
 };
 
+
 util = {
-	addEvent : function(element, type, handler){
-		if(element.attachEvent){
-			element.attachEvent("on" + type, handler);
-		} else if(element.addEventListener){
-			element.addEventListener(type, handler);
+	getTarget : function(e){
+		return e.target || e.srcElement;
+	},
+	addEvent : function(e, type, handler){
+		if(e.attachEvent){
+			e.attachEvent("on" + type, handler);
+		} else if(e.addEventListener){
+			e.addEventListener(type, handler);
 		};
-	},
-	addClass : function(el, className){
-		// console.log('addClass');
-	},
-	removeClass : function(el, className){
-		// console.log('removeClass');
 	}
-}
+};
 
 /*_____ Tabs.html _____*/
 
@@ -160,23 +169,23 @@ var doc = document,
 
 /* news */
 $news = doc.getElementById('news');
-tabsCtrl.setItems($news, $news.getElementsByTagName('h4'));
+tabsCtrl.init($news, $news.getElementsByTagName('h4'));
 tabsCtrl.tabs($news , 'click', 'H4', 'parentElement');
 
 /* srchId */
 $srchId = doc.getElementById('srchId');
-tabsCtrl.setItems($srchId, $srchId.getElementsByTagName('input'));
+tabsCtrl.init($srchId, $srchId.getElementsByTagName('input'));
 tabsCtrl.tabs($srchId , 'change', 'INPUT');
 
 /* season */
 $season = doc.getElementById('season');
-tabsCtrl.setItems($season, $season.getElementsByTagName('h4'), true, true);
+tabsCtrl.init($season, $season.getElementsByTagName('h4'), true, true);
 tabsCtrl.tabs($season , 'click', 'H4', 'parentElement');
 doc.getElementById('seasonBtnPrev').onclick = function(){
-	tabsCtrl.prevNext($season, this.dataset.direction);
+	tabsCtrl.prevNext($season, getDataAttr(this, 'direction'));
 };
 doc.getElementById('seasonBtnNext').onclick = function(){
-	tabsCtrl.prevNext($season, this.dataset.direction);
+	tabsCtrl.prevNext($season, getDataAttr(this, 'direction'));
 };
 doc.getElementById('seasonBtnPause').onclick = function(){
 	tabsCtrl.pause($season);
@@ -188,7 +197,7 @@ tabsCtrl.autoPlay($season, 3000);
 
 /* menu */
 $menu = doc.getElementById('menu');
-tabsCtrl.setItems(
+tabsCtrl.init(
 	$menu, 
 	$menu.getElementsByTagName('li'),
 	true
@@ -200,3 +209,28 @@ doc.getElementById('menuBtnNext').onclick = function(){
 	tabsCtrl.prevNext($menu, 'next', 3);
 };
 
+
+
+
+
+/*var sBrowser, sUsrAg = navigator.userAgent;
+if(sUsrAg.indexOf("Chrome") > -1) {
+    sBrowser = "Google Chrome";
+} else if (sUsrAg.indexOf("Safari") > -1) {
+    sBrowser = "Apple Safari";
+} else if (sUsrAg.indexOf("Opera") > -1) {
+    sBrowser = "Opera";
+} else if (sUsrAg.indexOf("Firefox") > -1) {
+    sBrowser = "Mozilla Firefox";
+} else if (sUsrAg.indexOf("MSIE") > -1) {
+    sBrowser = "Microsoft Internet Explorer";
+}
+console.log("You are using: " + sBrowser);
+function getBrowserId () {
+    var
+        aKeys = ["MSIE", "Firefox", "Safari", "Chrome", "Opera"],
+        sUsrAg = navigator.userAgent, nIdx = aKeys.length - 1;
+    for (nIdx; nIdx > -1 && sUsrAg.indexOf(aKeys[nIdx]) === -1; nIdx--);
+    return nIdx
+}
+console.log(getBrowserId());*/
