@@ -2,6 +2,7 @@
 
 /*_____ UI Script _____*/
 
+/* ieIE */
 var isIE,
 	isIE8 = false;
 isIE = function(){
@@ -10,7 +11,7 @@ isIE = function(){
 };
 if ( isIE() == 8 ) { isIE8 = true; }
 
-
+/* Dataset */
 var dataAttr, hasDataAttr, getDataAttr, setDataAttr;
 dataAttr = {
 	'true' : {
@@ -34,6 +35,7 @@ hasDataAttr = 'dataset' in document.body;
 getDataAttr = dataAttr[hasDataAttr].get;
 setDataAttr = dataAttr[hasDataAttr].set;
 
+/* Tabs Control */
 var tabsCtrl = {
 	init : function(el, items, direction, autoPlay){
 		el.items = items;
@@ -140,6 +142,7 @@ var tabsCtrl = {
 	}
 };
 
+/* Lower Brower Supply */
 var isLower = {
 	getTarget : function(e){
 		return e.target || e.srcElement;
@@ -211,28 +214,3 @@ doc.getElementById('menuBtnNext').onclick = function(){
 	tabsCtrl.prevNext($menu, 'next', 3);
 };
 
-
-
-
-
-/*var sBrowser, sUsrAg = navigator.userAgent;
-if(sUsrAg.indexOf("Chrome") > -1) {
-    sBrowser = "Google Chrome";
-} else if (sUsrAg.indexOf("Safari") > -1) {
-    sBrowser = "Apple Safari";
-} else if (sUsrAg.indexOf("Opera") > -1) {
-    sBrowser = "Opera";
-} else if (sUsrAg.indexOf("Firefox") > -1) {
-    sBrowser = "Mozilla Firefox";
-} else if (sUsrAg.indexOf("MSIE") > -1) {
-    sBrowser = "Microsoft Internet Explorer";
-}
-console.log("You are using: " + sBrowser);
-function getBrowserId () {
-    var
-        aKeys = ["MSIE", "Firefox", "Safari", "Chrome", "Opera"],
-        sUsrAg = navigator.userAgent, nIdx = aKeys.length - 1;
-    for (nIdx; nIdx > -1 && sUsrAg.indexOf(aKeys[nIdx]) === -1; nIdx--);
-    return nIdx
-}
-console.log(getBrowserId());*/
