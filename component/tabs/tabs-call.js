@@ -43,6 +43,7 @@ var setItems,
 	autoPlay,
 	play,
 	pause,
+	autoPlayCheck,
 	getIdx;
 setItems = function(items, direction, autoPlay){
 	this.items = items;
@@ -63,10 +64,7 @@ tabs = function(evtType){
 			return;
 		if(t.tagName == 'A') 								// e.preventDefault();
 			prevent(); 
-		if( this.auto ) {  									// auto play
-			clearInterval(this.interval);
-			play.call(this);
-		};
+		autoPlayCheck.call(this);							// auto play check
 		this.idx = Number( getDataAttr.call(t, 'idx') );
 		setCurrent.call(this, this.idx);
 	});
@@ -77,14 +75,10 @@ setCurrent = function(idx){
 		this.className = this.className;
 };
 prevNext = function(d, n){
-	var idx = Number(this.idx),
-		val = this.itemsLen-1;
+	var idx = Number(this.idx)
 	this.direction = d;
-	if( this.auto ) {
-		clearInterval(this.interval);
-		play.call(this);
-	};
-	idx = getIdx[this.direction](idx, val, n);
+	autoPlayCheck.call(this);
+	idx = getIdx[this.direction](idx, this.itemsLen-1, n);
 	this.idx = idx;
 	setCurrent.call(this, this.idx);
 };
@@ -106,26 +100,32 @@ autoPlay = function(timer){
 	setDataAttr.call(this, 'auto', true);
 	play.call(this);
 };
+autoPlayCheck = function(){
+	if( this.auto ) {
+		clearInterval(this.interval);
+		play.call(this);
+	};
+};
 getIdx = {
-	prev : function(idx, val, n){
+	prev : function(idx, len, n){
 		if(n) 
 			idx = idx - n; 
 		else
 			idx--;
 		if( idx < 0 ) {
 			if(n) 
-				idx = Math.floor(val/n)*n;
+				idx = Math.floor(len/n)*n;
 			else
-				idx = val;
+				idx = len;
 		};
 		return idx;
 	},
-	next : function(idx, val, n){
+	next : function(idx, len, n){
 		if(n)
 			idx = idx + n;
 		else 
 			idx++;
-		if( idx > val ) 
+		if( idx > len ) 
 			idx = 0;
 		return idx;
 	}

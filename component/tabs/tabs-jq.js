@@ -17,14 +17,16 @@ var setItems,
 	tabs,
 	setCurrent,
 	prevNext,
-	getIdxByDirection,
+	getIdx,
 	autoPlay,
 	play,
-	pause;
+	pause,
+	autoPlayCheck;
 setItems = function(items, direction, autoPlay){
 	this.items = items;
 	this.itemsLen = this.items.length;
 	if(direction) {
+		this.idx = this.attr('data-current');
 		this.direction = 'next';
 	};
 	if(autoPlay) {
@@ -35,67 +37,67 @@ setItems = function(items, direction, autoPlay){
 tabs = function(evtType, target){
 	var self = this;
 	this.items.find(target).click(function(){
-		var idx = $(this).parent().attr('data-idx');
-		self.attr('data-current', idx);
+		autoPlayCheck.call(self);
+		self.idx = $(this).parent().attr('data-idx');
+		self.attr('data-current', self.idx);
 	});
 };
-prevNext = function(d){
-	var idx = this.attr('data-current');
-	if( d == 'prev') {
-		idx--;
-		if( idx < 0 ) 
-			idx = $season.itemsLen - 1;
-	} else {
-		idx++;
-		if( idx == $season.itemsLen) 
-			idx = 0;
-	}
+prevNext = function(d, n){
+	var idx = Number(this.idx);
+	this.direction = d;
+	autoPlayCheck.call(this);
+	idx = getIdx[this.direction](idx, this.itemsLen-1, n);
+	this.idx = idx;
 	this.attr('data-current', idx);
-};/*
-getIdxByDirection = function(n){
-	var d = this.direction,
-		idx = Number(this.idx),
-		val = this.itemsLen-1;
-	if( d == "prev" ){
+};
+autoPlay = function(timer){
+	if(timer) 
+		this.timer = timer;
+	this.auto = true;
+	this.attr('data-auto', true);	
+	play.call(this);
+};
+play = function(){
+	var el = this;
+	el.interval = setInterval(function(){
+		prevNext.call(el, el.direction);
+	}, el.timer);
+};
+pause = function(){
+	clearInterval(this.interval);
+	this.auto = false;
+	this.attr('data-auto', false);
+};
+autoPlayCheck = function(){
+	if( this.auto ) {
+		clearInterval(this.interval);
+		play.call(this);
+	};
+};
+getIdx = {
+	prev : function(idx, len, n){
 		if(n) 
 			idx = idx - n; 
 		else
 			idx--;
 		if( idx < 0 ) {
 			if(n) 
-				idx = Math.floor(val/n)*n;
+				idx = Math.floor(len/n)*n;
 			else
-				idx = val;
+				idx = len;
 		};
-	} else {
+		return idx;
+	},
+	next : function(idx, len, n){
 		if(n)
 			idx = idx + n;
 		else 
 			idx++;
-		if( idx > val ) 
+		if( idx > len ) 
 			idx = 0;
-	};
-	this.idx = idx;
+		return idx;
+	}
 };
-autoPlay = function(timer){
-	if(timer) 
-		this.timer = timer;
-	this.auto = true;		
-	setDataAttr.call(this, 'auto', true);
-	play.call(this);
-};
-play = function(){
-	var el = this;
-	el.interval = setInterval(function(){
-		getIdxByDirection.call(el);
-		setCurrent.call(el, el.idx);
-	}, el.timer);
-};
-pause = function(){
-	clearInterval(this.interval);
-	this.auto = false;
-	setDataAttr.call(this, 'auto', false);
-};*/
 
 /*_____ Tabs.html _____*/
 var doc = document,
@@ -116,38 +118,29 @@ tabs.call($srchId, 'change', 'input');
 
 /* season */
 $season = $('#season');
-setItems.call($season, $season.find('h4'), true);
+setItems.call($season, $season.find('h4'), true, true);
 tabs.call($season, 'click', 'a');
 $('#seasonBtnPrev').click(function(){
-	prevNext.call($season, 'prev')
+	prevNext.call($season, 'prev');
 });
 $('#seasonBtnNext').click(function(){
-	prevNext.call($season, 'next')
+	prevNext.call($season, 'next');
 });
-/*$season.interval = setInterval(function(){
-	prevNext.call($season, 'next')
-}, 3000);
-*/
-/*
-doc.getElementById('seasonBtnPause').onclick = function(){
+$('#seasonBtnPause').click(function(){
 	pause.call($season);
-};
-doc.getElementById('seasonBtnPlay').onclick = function(){
-	autoPlay.call($season, 3000);
-};
-autoPlay.call($season, 3000);*/
+});
+$('#seasonBtnPlay').click(function(){
+	autoPlay.call($season, 2000);
+});
+autoPlay.call($season, 2000);
 
 /* menu */
-/*$menu = doc.getElementById('menu');
-setItems.call(
-	$menu, 
-	$menu.getElementsByTagName('li'),
-	true
-);
-doc.getElementById('menuBtnPrev').onclick = function(){
+$menu = $('#menu');
+setItems.call($menu, $menu.find('li'), true );
+$('#menuBtnPrev').click(function(){
 	prevNext.call($menu, 'prev', 3);
-};
-doc.getElementById('menuBtnNext').onclick = function(){
+});
+$('#menuBtnNext').click(function(){
 	prevNext.call($menu, 'next', 3);
-};
-*/
+});
+
