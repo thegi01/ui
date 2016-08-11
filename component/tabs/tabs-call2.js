@@ -2,6 +2,8 @@
 
 /*_____ UI Script _____*/
 
+/* Lower Brower Supply */
+
 /* ieIE */
 var isIE,
 	isOldIE = false;
@@ -11,24 +13,23 @@ isIE = function(){
 };
 if ( isIE() == 7 || isIE() == 8 ) { isOldIE = true; }
 
-/* Lower Brower Supply */
 /* Dataset */
 var dataAttr, hasDataAttr, getDataAttr, setDataAttr;
 dataAttr = {
 	'true' : {
-		get : function(el, attr){
-			return el.dataset[attr];
+		get : function(attr){
+			return this.dataset[attr];
 		},
-		set : function(el, attr, val){
-			el.dataset[attr] = val;
+		set : function(attr, val){
+			this.dataset[attr] = val;
 		}
 	},
 	'false' : {
-		get : function(el, attr){
-			return el.getAttribute('data-'+ attr);
+		get : function(attr){
+			return this.getAttribute('data-'+ attr);
 		},
-		set : function(el, attr, val){
-			el.setAttribute('data-' + attr, val);			
+		set : function(attr, val){
+			this.setAttribute('data-' + attr, val);			
 		}
 	}
 };
@@ -42,19 +43,19 @@ var _eTarget, eTarget,
 	_eventLisener, eventLisener,
 	_eventType, eventType;
 _eTarget = {
-	false : function(e){
-		return e.target;
+	false : function(){
+		return this.target;
 	},
-	true : function(e){				// OldIE
-		return e.srcElement;
+	true : function(){				// OldIE
+		return this.srcElement;
 	}
 };
 _prevent = {
-	false : function(e){
-		e.preventDefault();
+	false : function(){
+		this.preventDefault();
 	},
-	true : function(e){				// OldIE
-		e.returnValue = false;
+	true : function(){				// OldIE
+		this.returnValue = false;
 	}
 };
 _eventLisener = {
@@ -87,65 +88,66 @@ var setItems,
 	pause,
 	autoPlayCheck,
 	getIdx;
-setItems = function(el, items, direction, autoPlay){
-	el.items = items;
-	el.itemsLen = el.items.length;
+setItems = function(items, direction, autoPlay){
+	this.items = items;
+	this.itemsLen = this.items.length;
 	if(direction) {
-		el.idx = getDataAttr(el, 'current');
-		el.direction = 'next';
+		this.idx = getDataAttr.call(this, 'current');
+		this.direction = 'next';
 	};
 	if(autoPlay) {
-		el.auto = 'false';
-		el.timer = 3000;
+		this.auto = 'false';
+		this.timer = 3000;
 	};
 };
-tabs = function(el, evtType){
-	el[ eventLisener ]( eventType[evtType], function(e){
-		var t = eTarget(e);
+tabs = function(evtType){
+	this[ eventLisener ]( eventType[evtType], function(e){
+		var t = eTarget.call(e);
 		if( t.tagName == 'A' ) 							// e.preventDefault();
-			prevent(e);
+			prevent.call(e);
 		t = t.parentElement;
-		if(getDataAttr(t, 'role') != 'tabs-item')  		// 이벤트 타겟 검증
+		if(getDataAttr.call(t, 'role') != 'tabs-item')  		// 이벤트 타겟 검증
 			return;
-		autoPlayCheck(el);								// auto play check
-		el.idx = Number( getDataAttr(t, 'idx') );
-		setCurrent(el, el.idx);
+		autoPlayCheck.call(this);								// auto play check
+		this.idx = Number( getDataAttr.call(t, 'idx') );
+		setCurrent.call(this, this.idx);
 	});
 };
-setCurrent = function(el, idx){
-	setDataAttr(el, 'current', idx);
+setCurrent = function(idx){
+	setDataAttr.call(this, 'current', idx);
 	if(isOldIE)	// In IE8, css doesn't apply 
-		el.className = el.className;
+		this.className = this.className;
 };
-prevNext = function(el, d, n){
-	var idx = Number(el.idx)
-	el.direction = d;
-	autoPlayCheck(el);
-	idx = getIdx[el.direction](idx, el.itemsLen-1, n);
-	el.idx = idx;
-	setCurrent(el, el.idx);
+prevNext = function(d, n){
+	var idx = Number(this.idx)
+	this.direction = d;
+	autoPlayCheck.call(this);
+	idx = getIdx[this.direction](idx, this.itemsLen-1, n);
+	this.idx = idx;
+	setCurrent.call(this, this.idx);
 };
-play = function(el){
+play = function(){
+	var el = this;
 	el.interval = setInterval(function(){
-		prevNext(el, el.direction);
+		prevNext.call(el, el.direction);
 	}, el.timer);
 };
-pause = function(el){
-	clearInterval(el.interval);
-	el.auto = false;
-	setDataAttr(el, 'auto', false);
+pause = function(){
+	clearInterval(this.interval);
+	this.auto = false;
+	setDataAttr.call(this, 'auto', false);
 };
-autoPlay = function(el, timer){
+autoPlay = function(timer){
 	if(timer) 
-		el.timer = timer;
-	el.auto = true;		
-	setDataAttr(el, 'auto', true);
-	play(el);
+		this.timer = timer;
+	this.auto = true;		
+	setDataAttr.call(this, 'auto', true);
+	play.call(this);
 };
-autoPlayCheck = function(el){
-	if( el.auto ) {
-		clearInterval(el.interval);
-		play(el);
+autoPlayCheck = function(){
+	if( this.auto ) {
+		clearInterval(this.interval);
+		play.call(this);
 	};
 };
 getIdx = {
@@ -173,9 +175,6 @@ getIdx = {
 	}
 };
 
-
-
-
 /*_____ Tabs.html _____*/
 var doc = document,
 	$news,
@@ -185,42 +184,43 @@ var doc = document,
 
 /* news */
 $news = doc.getElementById('news');
-setItems($news, $news.getElementsByTagName('h4'));
-tabs($news, 'click');
+setItems.call($news, $news.getElementsByTagName('h4'));
+tabs.call($news, 'click');
 
 /* srchId */
 $srchId = doc.getElementById('srchId');
-setItems($srchId, $srchId.getElementsByTagName('h4'));
-tabs($srchId, 'change');  
+setItems.call($srchId, $srchId.getElementsByTagName('h4'));
+tabs.call($srchId, 'change');  
 
 /* season */
 $season = doc.getElementById('season');
-setItems($season, $season.getElementsByTagName('h4'), true, true);
-tabs($season , 'click');
+setItems.call($season, $season.getElementsByTagName('h4'), true, true);
+tabs.call($season , 'click');
 doc.getElementById('seasonBtnPrev').onclick = function(){
-	prevNext($season, 'prev');
+	prevNext.call($season, 'prev');
 };
 doc.getElementById('seasonBtnNext').onclick = function(){
-	prevNext($season, 'next');
+	prevNext.call($season, 'next');
 };
 doc.getElementById('seasonBtnPause').onclick = function(){
-	pause($season);
+	pause.call($season);
 };
 doc.getElementById('seasonBtnPlay').onclick = function(){
-	autoPlay($season, 2000);
+	autoPlay.call($season, 2000);
 };
-autoPlay($season, 2000);
+autoPlay.call($season, 2000);
 
 /* menu */
 $menu = doc.getElementById('menu');
-setItems(
+setItems.call(
 	$menu, 
 	$menu.getElementsByTagName('li'),
 	true
 );
 doc.getElementById('menuBtnPrev').onclick = function(){
-	prevNext($menu, 'prev', 3);
+	prevNext.call($menu, 'prev', 3);
 };
 doc.getElementById('menuBtnNext').onclick = function(){
-	prevNext($menu, 'next', 3);
+	prevNext.call($menu, 'next', 3);
 };
+
