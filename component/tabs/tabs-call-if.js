@@ -2,16 +2,14 @@
 
 /*_____ UI Script _____*/
 
-/* Lower Brower Supply */
-
 /* ieIE */
 var isIE,
-	isOldIE = false;
+	isIE8 = false;
 isIE = function(){
 	var myNav = navigator.userAgent.toLowerCase();
 	return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 };
-if ( isIE() == 7 || isIE() == 8 ) { isOldIE = true; }
+if ( isIE() == 8 ) { isIE8 = true; }
 
 /* Dataset */
 var dataAttr, hasDataAttr, getDataAttr, setDataAttr;
@@ -37,47 +35,6 @@ hasDataAttr = 'dataset' in document.body;
 getDataAttr = dataAttr[hasDataAttr].get;
 setDataAttr = dataAttr[hasDataAttr].set;
 
-var _eTarget, eTarget,
-	_addEvent, addEvent,
-	_prevent, prevent,
-	_eventLisener, eventLisener,
-	_eventType, eventType;
-_eTarget = {
-	false : function(){
-		return this.target;
-	},
-	true : function(){				// OldIE
-		return this.srcElement;
-	}
-};
-_prevent = {
-	false : function(){
-		this.preventDefault();
-	},
-	true : function(){				// OldIE
-		this.returnValue = false;
-	}
-};
-_eventLisener = {
-	false : 'addEventListener',
-	true : 'attachEvent' 			// OldIE
-};
-_eventType = {
-	false : {
-		'click' : 'click',
-		'change' : 'change'
-	},
-	true : {						// OldIE
-		'click' : 'onclick',
-		'change' : 'onclick'
-	}
-};
-eTarget = _eTarget[isOldIE];
-prevent = _prevent[isOldIE];
-eventLisener = _eventLisener[isOldIE];
-eventType = _eventType[isOldIE];
-
-
 /* Tabs Control */
 var setItems,
 	tabs,
@@ -101,21 +58,20 @@ setItems = function(items, direction, autoPlay){
 	};
 };
 tabs = function(evtType){
-	this[ eventLisener ]( eventType[evtType], function(e){
-		var t = eTarget.call(e);
-		if( t.tagName == 'A' ) 							// e.preventDefault();
-			prevent.call(e);
-		t = t.parentElement;
-		if(getDataAttr.call(t, 'role') != 'tabs-item')  		// 이벤트 타겟 검증
+	addEvent(this, evtType, function(e){
+		var t = getTarget(e).parentElement;
+		if(getDataAttr.call(t, 'role') != 'tabs-item')  	// 이벤트 타겟 검증
 			return;
-		autoPlayCheck.call(this);								// auto play check
+		if(t.tagName == 'A') 								// e.preventDefault();
+			prevent(); 
+		autoPlayCheck.call(this);							// auto play check
 		this.idx = Number( getDataAttr.call(t, 'idx') );
 		setCurrent.call(this, this.idx);
 	});
 };
 setCurrent = function(idx){
 	setDataAttr.call(this, 'current', idx);
-	if(isOldIE)	// In IE8, css doesn't apply 
+	if(isIE8)	// In IE8, css doesn't apply 
 		this.className = this.className;
 };
 prevNext = function(d, n){
@@ -174,6 +130,29 @@ getIdx = {
 		return idx;
 	}
 };
+
+/* Lower Brower Supply */
+var getTarget,
+	addEvent,
+	prevent;
+getTarget = function(e){
+	return e.target || e.srcElement;
+};
+addEvent = function(e, type, handler){
+	if(isIE8 && type == 'change')
+		type = 'click';
+	if(e.attachEvent)
+		e.attachEvent("on" + type, handler);
+	else /*if(e.addEventListener)*/
+		e.addEventListener(type, handler);
+};
+prevent = function(){
+	if(event.preventDefault)
+		event.preventDefault();
+	else
+		event.returnValue = false;
+};
+
 
 /*_____ Tabs.html _____*/
 var doc = document,
