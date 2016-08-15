@@ -124,9 +124,13 @@
 
 <!-- javacript -->
 <script>
-	var isOldIE = false; 
+	var isLteIE8 = false,
+		isOldIE = false; 
 </script>
-<!--[if lt IE 9]>
+<!--[if lte IE 8]>
+	<script> isLteIE8 = true; </script>
+<![endif]-->
+<!--[if lte IE 9]>
 	<script> isOldIE = true; </script>
 <![endif]-->
 <script type="text/javascript" src="tabs-call.js"></script>

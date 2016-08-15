@@ -2,57 +2,162 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>Slider</title>
+	<title>Tabs, Slider</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="googlebot" content="noindex,nofollow">
 	<link rel="stylesheet" type="text/css" href="slider.css">
-	<!--[if lt IE 9]>
-	<script type="text/javascript" src="../../common/html5.js"></script>
-	<![endif]-->
 </head>
 <body>
 
-<h2>Sample Site</h2>
-<div>http://bxslider.com/examples</div>
-
 <div class="wrap">
-	<h2 class="h2-1">Slider</h2>
-	<h3 class="h3-1">Component-1</h3>
-	<div id="compo1" class="slider compo1__slider" data-current="0" data-auto="false">
-		<ul id="compo1__sliderVr" class="slider-vr">
-			<li class="slider-vr-item" data-idx="0"><a href="#href" class="slider-vr-lnk">사진1</a></li>
-			<li class="slider-vr-item" data-idx="1"><a href="#href" class="slider-vr-lnk">사진2</a></li>
-			<li class="slider-vr-item" data-idx="2"><a href="#href" class="slider-vr-lnk">사진3</a></li>
-			<li class="slider-vr-item" data-idx="3"><a href="#href" class="slider-vr-lnk">사진4</a></li>
-			<li class="slider-vr-item" data-idx="4"><a href="#href" class="slider-vr-lnk">사진5</a></li>
-			<li class="slider-vr-item" data-idx="5"><a href="#href" class="slider-vr-lnk">사진6</a></li>
-		</ul>
-		<div id="compo1__sliderPager" class="slider-pager">
-			<div class="slider-pager-item" data-idx="0"><a href="#href" class="slider-pager-lnk">1</a></div>
-			<div class="slider-pager-item" data-idx="1"><a href="#href" class="slider-pager-lnk">2</a></div>
-			<div class="slider-pager-item" data-idx="2"><a href="#href" class="slider-pager-lnk">3</a></div>
-			<div class="slider-pager-item" data-idx="3"><a href="#href" class="slider-pager-lnk">4</a></div>
-			<div class="slider-pager-item" data-idx="4"><a href="#href" class="slider-pager-lnk">5</a></div>
-			<div class="slider-pager-item" data-idx="5"><a href="#href" class="slider-pager-lnk">6</a></div>
+	<h2 class="h2-1">Tabs</h2>
+	<h3 class="h3-1">순서대로</h3>
+	<div id="news" class="tabs news__tabs" data-current="0">
+		<h4 class="tabs-item" data-role="tabs-item" data-idx="0"><a href="#href" class="tabs-item-a">20대</a></h4>
+		<div class="tabs-cnts" data-idx="0">
+			<ol class="ol-lst1">
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">20대 이하가 많이 본 뉴스 1</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">20대 이하가 많이 본 뉴스 2</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">20대 이하가 많이 본 뉴스 3</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">20대 이하가 많이 본 뉴스 4</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">20대 이하가 많이 본 뉴스 5</a></li>
+			</ol>
 		</div>
-		<div class="slider-direction">
-			<button id="compo1__sliderBtnPrev" class="slider-btn-prev">이전</button>
-			<button id="compo1__sliderBtnNext" class="slider-btn-next">다음</button>
+		<h4 class="tabs-item" data-role="tabs-item" data-idx="1"><a href="#href" class="tabs-item-a">30대</a></h4>
+		<div class="tabs-cnts" data-idx="1">
+			<ol class="ol-lst1">
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">30대가 많이 본 뉴스 1</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">30대가 많이 본 뉴스 2</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">30대가 많이 본 뉴스 3</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">30대가 많이 본 뉴스 4</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">30대가 많이 본 뉴스 5</a></li>
+			</ol>
 		</div>
-		<div class="slider-auto">
-			<button id="compo1__sliderBtnPlay" class="slider-btn-play">재생</button>
-			<button id="compo1__sliderBtnPause" class="slider-btn-pause">정지</button>
+		<h4 class="tabs-item" data-role="tabs-item" data-idx="2"><a href="#href" class="tabs-item-a">40대</a></h4>
+		<div class="tabs-cnts" data-idx="2">
+			<ol class="ol-lst1">
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">40대가 많이 본 뉴스 1</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">40대가 많이 본 뉴스 2</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">40대가 많이 본 뉴스 3</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">40대가 많이 본 뉴스 4</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">40대가 많이 본 뉴스 5</a></li>
+			</ol>
+		</div>
+		<h4 class="tabs-item" data-role="tabs-item" data-idx="3"><a href="#href" class="tabs-item-a">50대</a></h4>
+		<div class="tabs-cnts" data-idx="3">
+			<ol class="ol-lst1">
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">50대 이상이 많이 본 뉴스 1</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">50대 이상이 많이 본 뉴스 2</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">50대 이상이 많이 본 뉴스 3</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">50대 이상이 많이 본 뉴스 4</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">50대 이상이 많이 본 뉴스 5</a></li>
+			</ol>
+		</div>
+		<h4 class="tabs-item" data-role="tabs-item" data-idx="4"><a href="#href" class="tabs-item-a">전체</a></h4>
+		<div class="tabs-cnts" data-idx="4">
+			<ol class="ol-lst1">
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">전체가 많이 본 뉴스 1</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">전체가 많이 본 뉴스 2</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">전체가 많이 본 뉴스 3</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">전체가 많이 본 뉴스 4</a></li>
+				<li class="ol-lst1-item"><a href="#href" class="ol-lst1-a">전체가 많이 본 뉴스 5</a></li>
+			</ol>
 		</div>
 	</div>
+
+	<h3 class="h3-1">Tabs > Panel 방식</h3>
+	<div id="compo2" class="tabs compo2__tabs" data-current="0" data-auto-play="false">
+		<ul id="compo2__tabsLst" class="tabs-lst">
+			<li class="tabs-item" data-role="tabs-item" data-idx="0"><a href="#href" class="tabs-item-a">Tab 1</a></li>
+			<li class="tabs-item" data-role="tabs-item" data-idx="1"><a href="#href" class="tabs-item-a">Tab 2</a></li>
+			<li class="tabs-item" data-role="tabs-item" data-idx="2"><a href="#href" class="tabs-item-a">Tab 3</a></li>
+			<li class="tabs-item" data-role="tabs-item" data-idx="3"><a href="#href" class="tabs-item-a">Tab 4</a></li>
+			<li class="tabs-item" data-role="tabs-item" data-idx="4"><a href="#href" class="tabs-item-a">Tab 5</a></li>
+			<li class="tabs-item" data-role="tabs-item" data-idx="5"><a href="#href" class="tabs-item-a">Tab 6</a></li>
+		</ul>
+		<div class="tabs-panel">
+			<div class="tabs-panel-item" data-idx="0">
+				<h6>Panel 1</h6>
+				Contents <br> <a href="#href">link 1</a>
+			</div>
+			<div class="tabs-panel-item" data-idx="1">
+				<h6>Panel 2</h6>
+				Contents <br> <a href="#href">link 2</a>
+			</div>
+			<div class="tabs-panel-item" data-idx="2">
+				<h6>Panel 3</h6>
+				Contents <br> <a href="#href">link 3</a>
+			</div>
+			<div class="tabs-panel-item" data-idx="3">
+				<h6>Panel 4</h6>
+				Contents <br> <a href="#href">link 4</a>
+			</div>
+			<div class="tabs-panel-item" data-idx="4">
+				<h6>Panel 5</h6>
+				Contents <br> <a href="#href">link 5</a>
+			</div>
+			<div class="tabs-panel-item" data-idx="5">
+				<h6>Panel 5</h6>
+				Contents <br> <a href="#href">link 6</a>
+			</div>
+		</div>
+		<div class="tabs-direction">
+			<button id="compo2__tabsBtnPrev" class="tabs-btn-prev">이전</button>
+			<button id="compo2__tabsBtnNext" class="tabs-btn-next">다음</button>
+		</div>
+		<div class="tabs-auto">
+			<button id="compo2__tabsBtnPlay" class="tabs-btn-play">재생</button>
+			<button id="compo2__tabsBtnPause" class="tabs-btn-pause">정지</button>
+		</div>
+	</div>
+
+	<h2 class="h2-1">Slider</h2>
+	<h3 class="h3-1">Component-3</h3>
+	<div id="compo3" class="slider compo3__slider" data-current="0" data-auto-play="false">
+	
+		<div id="compo3__sliderVr" class="slider-vr">
+			<div class="slider-vr-item" data-idx="0"><a href="#href" class="slider-vr-a">사진1</a></div>
+			<div class="slider-vr-item" data-idx="1"><a href="#href" class="slider-vr-a">사진2</a></div>
+			<div class="slider-vr-item" data-idx="2"><a href="#href" class="slider-vr-a">사진3</a></div>
+			<div class="slider-vr-item" data-idx="3"><a href="#href" class="slider-vr-a">사진4</a></div>
+			<div class="slider-vr-item" data-idx="4"><a href="#href" class="slider-vr-a">사진5</a></div>
+			<div class="slider-vr-item" data-idx="5"><a href="#href" class="slider-vr-a">사진6</a></div>
+		</div>
+		<ul id="compo3__sliderPager" class="slider-pager">
+			<li class="slider-pager-item" data-role="slider-pager-item" data-idx="0"><a href="#href" class="slider-pager-a">1</a></li>
+			<li class="slider-pager-item" data-role="slider-pager-item" data-idx="1"><a href="#href" class="slider-pager-a">2</a></li>
+			<li class="slider-pager-item" data-role="slider-pager-item" data-idx="2"><a href="#href" class="slider-pager-a">3</a></li>
+			<li class="slider-pager-item" data-role="slider-pager-item" data-idx="3"><a href="#href" class="slider-pager-a">4</a></li>
+			<li class="slider-pager-item" data-role="slider-pager-item" data-idx="4"><a href="#href" class="slider-pager-a">5</a></li>
+			<li class="slider-pager-item" data-role="slider-pager-item" data-idx="5"><a href="#href" class="slider-pager-a">6</a></li>
+		</ul>
+		<div class="slider-direction">
+			<button id="compo3__sliderBtnPrev" class="slider-btn-prev">이전</button>
+			<button id="compo3__sliderBtnNext" class="slider-btn-next">다음</button>
+		</div>
+		<div class="slider-auto">
+			<button id="compo3__sliderBtnPlay" class="slider-btn-play">재생</button>
+			<button id="compo3__sliderBtnPause" class="slider-btn-pause">정지</button>
+		</div>
+	</div>
+
+
+	<div style="margin-top:5em;">http://bxslider.com/examples</div>
+
+	
 		
 </div>		
 
 <!-- javacript -->
 <script>
-	var isOldIE = false; 
+	var isLteIE8 = false,
+		isOldIE = false; 
 </script>
-<!--[if lt IE 9]>
+<!--[if lte IE 8]>
+	<script> isLteIE8 = true; </script>
+<![endif]-->
+<!--[if lte IE 9]>
 	<script> isOldIE = true; </script>
 <![endif]-->
 <script type="text/javascript" src="slider.js"></script>

@@ -2,11 +2,14 @@
 
 /*_____ UI Script _____*/
 
-/* Lower Brower Supply */
+/*
+ * 하위 호환성 체크
+ * BC : backward compatibility 
+ */
 
-/* Dataset */
-var dataSet, hasDataSet, getData, setData;
-dataSet = {
+/* BC > dataAttr */
+var dataAttr, hasdataAttr, getdataAttr, setdataAttr;
+dataAttr = {
 	'true' : {
 		get : function(name){
 			return this.dataset[name];
@@ -24,59 +27,84 @@ dataSet = {
 		}
 	}
 };
-hasDataSet = 'dataset' in document.body;
-getData = dataSet[hasDataSet].get;
-setData = dataSet[hasDataSet].set;
+hasdataAttr = 'dataset' in document.body;
+getdataAttr = dataAttr[hasdataAttr].get;
+setdataAttr = dataAttr[hasdataAttr].set;
 
-var _eTarget, eTarget,
-	_addEvent, addEvent,
-	_prevent, prevent,
-	_eventLisener, eventLisener,
-	_eventType, eventType;
-_eTarget = {
-	false : function(){
+/* BC > Target, Event....*/
+var getETarget, getAddEvent, getPrevent, getAddEvent, getEventType;
+getETarget = {
+	true : function(){
 		return this.target;
 	},
-	true : function(){				// OldIE
+	false : function(){				// OldIE
 		return this.srcElement;
 	}
 };
-_prevent = {
-	false : function(){
+getPrevent = {
+	true : function(){
 		this.preventDefault();
 	},
-	true : function(){				// OldIE
+	false : function(){				// OldIE
 		this.returnValue = false;
 	}
 };
-_eventLisener = {
-	false : 'addEventListener',
-	true : 'attachEvent' 			// OldIE
+getAddEvent = {
+	true : 'addEventListener',
+	false : 'attachEvent' 			// OldIE
 };
-_eventType = {
-	false : {
+getEventType = {
+	true : {
 		'click' : 'click',
 		'change' : 'change'
 	},
-	true : {						// OldIE
+	false : {						// OldIE
 		'click' : 'onclick',
 		'change' : 'onclick'
 	}
 };
-eTarget = _eTarget[isOldIE];
-prevent = _prevent[isOldIE];
-eventLisener = _eventLisener[isOldIE];
-eventType = _eventType[isOldIE];
 
+var  hasAddEvent;
+hasAddEvent =  (Element.prototype.addEventListener) ? true : false;
+
+var eTarget, prevent, addEvent, eventType; 
+addEvent = getAddEvent[ hasAddEvent ];
+eventType = getEventType[ hasAddEvent ];
+document.body.onload = function(e){
+	eTarget = getETarget[ typeof e.target != 'undefined' ];
+	prevent = getPrevent [ typeof e.preventDefault != 'undefined'];
+};
+
+
+/*
+ * appendStyle
+ * @param css : String, css text 
+ */
+var appendStyle = function(css){
+	var head = document.head || getEleByTagName(document, 'head')[0],
+		style;
+	if(head.getElementsByTagName('style').length){
+		style = head.getElementsByTagName('style')[0];
+	} else {
+		style = document.createElement('style');
+		style.type = 'text/css';
+	}
+	style.appendChild(document.createTextNode(css));
+	head.appendChild(style);
+};
+
+
+/*
+ * Components
+ */
 
 /* Tabs Control */
-var setItems, setItemsSlider,
-	sliderPager,
+var setItems, 
+	setSlider,
 	tabs,
 	setCurrent,
-	setCurrentSlier,
+	setCurrentSlider,
 	prevNext,
-	prevNextSlider,
 	autoPlay,
 	play,
 	pause,
@@ -86,52 +114,54 @@ setItems = function(items, direction, autoPlay){
 	this.items = items;
 	this.itemsLen = this.items.length;
 	if(direction) {
-		this.idx = getData.call(this, 'current');
+		this.idx = getdataAttr.call(this, 'current');
 		this.direction = 'next';
 	};
 	if(autoPlay) {
-		this.auto = 'false';
+		this.autoPlay = 'false';
 		this.timer = 3000;
 	};
 };
-setItemsSlider = function(vr, items, direction, autoPlay){
-	setItems.call(this, items, direction, autoPlay);
+setSlider = function(vr, responsive){
+	var css ;
 	this.vr = vr;
+	this.itemWidth = this.offsetWidth;
+	if(responsive){
+		css = '#' + this.id + ' .' + $compo3.vr.firstElementChild.className + ' {width:' + this.itemWidth + 'px' + '}';
+		appendStyle(css);
+	};
+	this.vr.style.width = this.itemWidth * this.itemsLen + 'px';
 };
-tabs = function(evtType){
-	this[ eventLisener ]( eventType[evtType], function(e){
+tabs = function(el, evtType, role){
+	this[ addEvent ]( eventType[evtType], function(e){
 		var t = eTarget.call(e);
 		if( t.tagName == 'A' ) 									// e.preventDefault();
 			prevent.call(e);
 		t = t.parentElement;
-		if(getData.call(t, 'role') != 'tabs-item')  			// 이벤트 타겟 검증
+		if(getdataAttr.call(t, 'role') != role)  				// 이벤트 타겟 검증
 			return;
-		autoPlayCheck.call(this);								// auto play check
-		this.idx = Number( getData.call(t, 'idx') );
-		setCurrent.call(this, this.idx);
-	});
-};
-sliderPager = function(el, evtType){
-	// this : slidrPager
-	el.itemWidth = el.vr.offsetWidth/el.itemsLen;
-	this[ eventLisener ]( eventType[evtType], function(e){
-		var t = eTarget.call(e);
-		if( t.tagName == 'A' )
-			prevent.call(e);						// e.preventDefault();
-		t = t.parentElement;
-		el.idx = Number( getData.call(t, 'idx') );
+		autoPlayCheck.call(el);									// auto play check
+		el.idx = Number( getdataAttr.call(t, 'idx') );
 		setCurrent.call(el, el.idx);
-		setCurrentSlier.call(el);
 	});
 };
 setCurrent = function(idx){
-	setData.call(this, 'current', idx);
-	if(isOldIE)	// In IE8, css doesn't apply 
+	setdataAttr.call(this, 'current', idx);
+	if(isLteIE8)												// In IE8, css doesn't apply 
 		this.className = this.className;
+	if(this.vr) 
+		setCurrentSlider[isOldIE].call(this, this.idx * this.itemWidth);
 };
-setCurrentSlier = function(){
-	var xVal = this.idx * this.itemWidth;
-	this.vr.style.webkitTransform = 'translate3d(' + (-xVal) +'px, 0px, 0px)';
+setCurrentSlider = {
+	true : function(xVal){										// OldIE
+		this.vr.style.left = -xVal + 'px';
+	}, 
+	false : function(xVal){
+		this.vr.style.webkitTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+		this.vr.style.mozTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+		this.vr.style.oTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+		this.vr.style.transform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+	}
 };
 prevNext = function(d, n){
 	var idx = Number(this.idx);
@@ -141,10 +171,6 @@ prevNext = function(d, n){
 	this.idx = idx;
 	setCurrent.call(this, this.idx);
 };
-prevNextSlider = function(d, n){
-	prevNext.call(this, d, n);
-	setCurrentSlier.call(this);
-};
 play = function(){
 	var el = this;
 	el.interval = setInterval(function(){
@@ -153,18 +179,18 @@ play = function(){
 };
 pause = function(){
 	clearInterval(this.interval);
-	this.auto = false;
-	setData.call(this, 'auto', false);
+	this.autoPlay = false;
+	setdataAttr.call(this, 'autoPlay', false);
 };
 autoPlay = function(timer){
 	if(timer) 
 		this.timer = timer;
 	this.auto = true;		
-	setData.call(this, 'auto', true);
+	setdataAttr.call(this, 'autoPlay', true);
 	play.call(this);
 };
 autoPlayCheck = function(){
-	if( this.auto ) {
+	if( this.autoPlay ) {
 		clearInterval(this.interval);
 		play.call(this);
 	};
@@ -194,36 +220,77 @@ getIdx = {
 	}
 };
 
+
+
+
 /*_____ Tabs.html _____*/
 var doc = document,
-	$compo1,
-	$compo1__sliderVr,
-	$compo1__sliderPager;
+	$news,
+	$compo2,
+	$compo3;
 
-/* compo1 */
-$compo1 = doc.getElementById('compo1');
-setItemsSlider.call(
-	$compo1, 
-	doc.getElementById('compo1__sliderVr'),		// sliderVr
-	$compo1.getElementsByTagName('li'),			// Items
+/* news */
+$news = doc.getElementById('news');
+setItems.call($news, $news.getElementsByTagName('h4'));
+tabs.call($news, 
+	$news,			// el
+	'click', 		// evtType
+	'tabs-item'		// role
+);
+
+/* compo2 */
+$compo2 = doc.getElementById('compo2');
+setItems.call($compo2,
+	doc.getElementById('compo2__tabsLst').getElementsByTagName('li'),	// items
+	true,				// direction
+	true				// auto play
+);
+tabs.call($compo2, 
+	$compo2,			// el
+	'click', 			// evtType
+	'tabs-item'			// role
+);
+doc.getElementById('compo2__tabsBtnPrev').onclick = function(){
+	prevNext.call($compo2, 'prev');
+};
+doc.getElementById('compo2__tabsBtnNext').onclick = function(){
+	prevNext.call($compo2, 'next');
+};
+doc.getElementById('compo2__tabsBtnPause').onclick = function(){
+	pause.call($compo2);
+};
+doc.getElementById('compo2__tabsBtnPlay').onclick = function(){
+	autoPlay.call($compo2, 2000);
+};
+// autoPlay.call($compo2, 2000);
+
+/* compo3 */
+$compo3 = doc.getElementById('compo3');
+setItems.call($compo3, 
+	$compo3.getElementsByTagName('li'),			// Items
 	true,										// direction
 	true										// auto play
 );
-sliderPager.call(doc.getElementById('compo1__sliderPager'), $compo1, 'click');
-
-doc.getElementById('compo1__sliderBtnPrev').onclick = function(){
-	prevNextSlider.call($compo1, 'prev');
+setSlider.call($compo3,
+	doc.getElementById('compo3__sliderVr'),		// sliderVr
+	true										// responsive
+);
+tabs.call(doc.getElementById('compo3__sliderPager'), 
+	$compo3, 									// el
+	'click',									// evtType
+	'slider-pager-item'							// role
+);
+doc.getElementById('compo3__sliderBtnPrev').onclick = function(){
+	prevNext.call($compo3, 'prev');
 };
-doc.getElementById('compo1__sliderBtnNext').onclick = function(){
-	prevNextSlider.call($compo1, 'next');
+doc.getElementById('compo3__sliderBtnNext').onclick = function(){
+	prevNext.call($compo3, 'next');
 };
-
-/*
-doc.getElementById('compo1BtnPause').onclick = function(){
-	pause.call($compo1);
+doc.getElementById('compo3__sliderBtnPause').onclick = function(){
+	pause.call($compo3);
 };
-doc.getElementById('compo1BtnPlay').onclick = function(){
-	autoPlay.call($compo1, 2000);
+doc.getElementById('compo3__sliderBtnPlay').onclick = function(){
+	autoPlay.call($compo3, 2000);
 };
-autoPlay.call($compo1, 2000);*/
+// autoPlay.call($compo3, 2000);
 
