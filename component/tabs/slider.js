@@ -27,7 +27,16 @@ getDataAttr = dataAttr[hasDataAttr].get;
 setDataAttr = dataAttr[hasDataAttr].set;
 
 var appendStyle = function(css){
-	var head = document.head || getElementsByTagName(document, 'head')[0],
+    var head = document.head || document.getElementsByTagName('head')[0],
+    	style = document.createElement('style');
+	style.type = 'text/css';
+	if (style.styleSheet){
+	  style.styleSheet.cssText = css;
+	} else {
+	  style.appendChild(document.createTextNode(css));
+	}
+	head.appendChild(style);
+	/*var head = document.head || document.getElementsByTagName('head')[0],
 		style;
 	if(head.getElementsByTagName('style').length){
 		style = head.getElementsByTagName('style')[0];
@@ -35,8 +44,9 @@ var appendStyle = function(css){
 		style = document.createElement('style');
 		style.type = 'text/css';
 	}
-	style.appendChild(document.createTextNode(css));
-	head.appendChild(style);
+	var _t = document.createTextNode(cssText);
+	style.appendChild(_t.textContent);
+	head.appendChild(style);*/
 };
 
 
@@ -48,8 +58,8 @@ var currentIdx = {
 	set : function( cpnt, idx ){
 		cpnt.current = idx;
 		window.setDataAttr(cpnt, 'current', idx);
-		if( isLteIE8 )												// In IE8, css doesn't apply 
-			this.className = this.className;
+		// if( isOldIE )												// In IE8, css doesn't apply 
+			cpnt.className = cpnt.className;
 		if( cpnt.panel ) 	// items이 유동적일 경우
 			window.panelSlide.panelAnimate[isOldIE](cpnt, idx * cpnt.itemWidth);
 		if( cpnt.pagerCur )
@@ -134,12 +144,12 @@ var tabs = {
 		};
 	},
 	pagerSet : function( cpnt, pagerCur, pagerTotal){
-		pagerTotal.textContent = cpnt.itemsLen;
+		pagerTotal.innerText = cpnt.itemsLen;
 		cpnt.pagerCur = pagerCur;
 		this.pagerApply( cpnt );
 	},
 	pagerApply : function( cpnt ){
-		cpnt.pagerCur.textContent = window.currentIdx.get( cpnt ) + 1;
+		cpnt.pagerCur.innerText = window.currentIdx.get( cpnt ) + 1;
 	}
 };
 // items이 유동적일 경우
