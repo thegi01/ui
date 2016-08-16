@@ -30,23 +30,11 @@ var appendStyle = function(css){
     var head = document.head || document.getElementsByTagName('head')[0],
     	style = document.createElement('style');
 	style.type = 'text/css';
-	if (style.styleSheet){
-	  style.styleSheet.cssText = css;
-	} else {
-	  style.appendChild(document.createTextNode(css));
-	}
+	if (style.styleSheet)
+	 	style.styleSheet.cssText = css;
+	else 
+		style.appendChild(document.createTextNode(css));
 	head.appendChild(style);
-	/*var head = document.head || document.getElementsByTagName('head')[0],
-		style;
-	if(head.getElementsByTagName('style').length){
-		style = head.getElementsByTagName('style')[0];
-	} else {
-		style = document.createElement('style');
-		style.type = 'text/css';
-	}
-	var _t = document.createTextNode(cssText);
-	style.appendChild(_t.textContent);
-	head.appendChild(style);*/
 };
 
 
@@ -111,17 +99,17 @@ var currentCtrl = {
 	},
 	pause : function( cpnt ){
 		window.clearInterval( cpnt.interval );
-		cpnt.autoPlay = false;
-		window.setDataAttr( cpnt, 'autoPlay', false);
+		cpnt.play = false;
+		window.setDataAttr( cpnt, 'play', false);
 	},
 	autoPlay : function( cpnt, timer ){
 		cpnt.timer = timer ? timer : 3000;
-		cpnt.autoPlay = true;		
-		window.setDataAttr( cpnt, 'autoPlay', true);
+		cpnt.play = true;		
+		window.setDataAttr( cpnt, 'play', true);
 		this.play( cpnt );
 	},
 	autoPlayCheck : function( cpnt ){
-		if( cpnt.autoPlay ) {
+		if( cpnt.play ) {
 			window.clearInterval(cpnt.interval);
 			this.play( cpnt ) ;
 		};

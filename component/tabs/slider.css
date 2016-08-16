@@ -67,8 +67,8 @@ li {
 	clear: both;
 }
 /* tabs > js */
-.tabs[data-autoplay="false"] .tabs-btn-pause,
-.tabs[data-autoplay="true"] .tabs-btn-play {
+.tabs[data-play="false"] .tabs-btn-pause,
+.tabs[data-play="true"] .tabs-btn-play {
 	display: none;
 }
 .tabs[data-current="0"] .tabs-cnts[data-idx="0"],
@@ -209,8 +209,8 @@ li {
 .slider-auto {
 	float : right;
 }
-.slider[data-autoplay="false"] .slider-btn-pause,
-.slider[data-autoplay="true"] .slider-btn-play {
+.slider[data-play="false"] .slider-btn-pause,
+.slider[data-play="true"] .slider-btn-play {
 	display : none;
 }
 .slider[data-current="0"] .slider-pager-item[data-idx="0"],
