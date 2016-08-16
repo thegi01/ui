@@ -3,142 +3,12 @@
 /*_____ UI Script _____*/
 
 /*
- * Components
- */
-
-if(isOldIE) document.body.className = document.body.className + ' oldIE';
-
-/* Data Current Control */
-var currentIdx = {
-	set : function( cpnt, idx ){
-		cpnt.current = idx;
-		window.setdataAttr(cpnt, 'current', idx);
-		if(isLteIE8)												// In IE8, css doesn't apply 
-			this.className = this.className;
-		if( cpnt.panel ) 	// items이 유동적일 경우
-			window.panelSlide.panelAnimate[isOldIE](cpnt, idx * cpnt.itemWidth);
-		if( cpnt.pagerCur )
-			window.tabs.pagerApply( cpnt );
-	},
-	get : function( cpnt ){
-		return Number( window.getdataAttr( cpnt, 'current' ) );
-	},
-	next : function( cpnt ){
-		var idx = this.get( cpnt );
-		cpnt.direction = 'next';
-		if(cpnt.nth)
-			idx = idx + cpnt.nth;
-		else 
-			idx++;
-		if( idx === cpnt.itemsLen  ) 
-			idx = 0;
-		this.set( cpnt, idx );
-		if( cpnt.pagerCur )
-			window.tabs.pagerApply( cpnt );
-	},
-	prev : function( cpnt ){
-		var idx = this.get( cpnt );
-		cpnt.direction = 'prev';
-		if(cpnt.nth) 
-			idx = idx - cpnt.nth; 
-		else
-			idx--;
-		if( idx < 0 ) {
-			if(cpnt.nth) 
-				idx = Math.floor((cpnt.itemsLen - 1)/cpnt.nth)*cpnt.nth;
-			else
-				idx = cpnt.itemsLen - 1;
-		};
-		this.set( cpnt, idx );
-		if( cpnt.pagerCur )
-			window.tabs.pagerApply( cpnt );
-	}
-};
-var currentCtrl = {
-	play : function( cpnt ){
-		if(!cpnt.direction){
-			cpnt.idx = window.currentIdx.get( cpnt );
-			cpnt.direction = 'next';
-		};
-		cpnt.interval = setInterval(function(){
-			window.currentIdx[cpnt.direction](cpnt);
-		}, cpnt.timer);
-	},
-	pause : function( cpnt ){
-		window.clearInterval( cpnt.interval );
-		cpnt.autoPlay = false;
-		window.setdataAttr( cpnt, 'autoPlay', false);
-	},
-	autoPlay : function( cpnt, timer ){
-		cpnt.timer = timer ? timer : 3000;
-		cpnt.autoPlay = true;		
-		window.setdataAttr( cpnt, 'autoPlay', true);
-		this.play( cpnt );
-	},
-	autoPlayCheck : function( cpnt ){
-		if( cpnt.autoPlay ) {
-			window.clearInterval(cpnt.interval);
-			this.play( cpnt ) ;
-		};
-	}
-};
-var tabs = {
-	set : function( cpnt, items, nth ){
-		cpnt.items = items;
-		cpnt.itemsLen = cpnt.items.length;
-		cpnt.nth = nth;
-	},
-	evtListener : function( cpnt, el, evtType, role ){
-		el[ addEvent ]( eventType[evtType], function(e){
-			var t = window.eTarget(e);
-			if( t.tagName == 'A' ) 										// e.preventDefault();
-				window.prevent(e);
-			t = t.parentElement;
-			if(window.getdataAttr(t, 'role') != role)  					// 이벤트 타겟 검증
-				return;
-			window.currentCtrl.autoPlayCheck(cpnt);						// auto play check
-			var idx = Number( window.getdataAttr(t, 'idx') );
-			window.currentIdx.set( cpnt, idx );
-		});
-	},
-	pagerSet : function( cpnt, pagerCur, pagerTotal){
-		pagerTotal.textContent = cpnt.itemsLen;
-		cpnt.pagerCur = pagerCur;
-		this.pagerApply( cpnt );
-	},
-	pagerApply : function( cpnt ){
-		cpnt.pagerCur.textContent = window.currentIdx.get( cpnt ) + 1;
-	}
-};
-// items이 유동적일 경우
-var panelSlide = {
-	set : function( cpnt, panel ){
-		cpnt.panel = panel;
-		cpnt.itemWidth = cpnt.offsetWidth;
-		var css = '#' + cpnt.id + ' .' + cpnt.panel.firstElementChild.className + ' {width:' + cpnt.itemWidth + 'px' + '}';
-		window.appendStyle(css);
-		cpnt.panel.style.width = cpnt.itemWidth * cpnt.itemsLen + 'px';
-	},
-	panelAnimate : {  
-		true : function( cpnt, xVal ){					// OldIE
-			cpnt.panel.style.left = -xVal + 'px';
-		}, 
-		false : function( cpnt, xVal ){					// css3
-			cpnt.panel.style.webkitTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
-			cpnt.panel.style.mozTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
-			cpnt.panel.style.oTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
-			cpnt.panel.style.transform = 'translate3d(' + -xVal +'px, 0px, 0px)';
-		}
-	}
-};
-
-/*
  * 하위 호환성 체크
  * BC : backward compatibility 
  */
 
 /* BC > dataAttr */
-var dataAttr, hasdataAttr, getdataAttr, setdataAttr;
+var dataAttr, hasDataAttr, getDataAttr, setDataAttr;
 dataAttr = {
 	'true' : {
 		get : function( el, name ){
@@ -157,9 +27,9 @@ dataAttr = {
 		}
 	}
 };
-hasdataAttr = 'dataset' in document.body;
-getdataAttr = dataAttr[hasdataAttr].get;
-setdataAttr = dataAttr[hasdataAttr].set;
+hasDataAttr = 'dataset' in document.body;
+getDataAttr = dataAttr[hasDataAttr].get;
+setDataAttr = dataAttr[hasDataAttr].set;
 
 /* BC > Target, Event....*/
 var getETarget, getAddEvent, getPrevent, getAddEvent, getEventType;
@@ -217,6 +87,135 @@ var appendStyle = function(css){
 	style.appendChild(document.createTextNode(css));
 	head.appendChild(style);
 };
+
+/*
+ * Components
+ */
+
+/* Data Current Control */
+var currentIdx = {
+	set : function( cpnt, idx ){
+		cpnt.current = idx;
+		window.setDataAttr(cpnt, 'current', idx);
+		if(isLteIE8)												// In IE8, css doesn't apply 
+			this.className = this.className;
+		if( cpnt.panel ) 	// items이 유동적일 경우
+			window.panelSlide.panelAnimate[isOldIE](cpnt, idx * cpnt.itemWidth);
+		if( cpnt.pagerCur )
+			window.tabs.pagerApply( cpnt );
+	},
+	get : function( cpnt ){
+		return Number( window.getDataAttr( cpnt, 'current' ) );
+	},
+	next : function( cpnt ){
+		var idx = this.get( cpnt );
+		cpnt.direction = 'next';
+		if(cpnt.nth)
+			idx = idx + cpnt.nth;
+		else 
+			idx++;
+		if( idx === cpnt.itemsLen  ) 
+			idx = 0;
+		this.set( cpnt, idx );
+		if( cpnt.pagerCur )
+			window.tabs.pagerApply( cpnt );
+	},
+	prev : function( cpnt ){
+		var idx = this.get( cpnt );
+		cpnt.direction = 'prev';
+		if(cpnt.nth) 
+			idx = idx - cpnt.nth; 
+		else
+			idx--;
+		if( idx < 0 ) {
+			if(cpnt.nth) 
+				idx = Math.floor((cpnt.itemsLen - 1)/cpnt.nth)*cpnt.nth;
+			else
+				idx = cpnt.itemsLen - 1;
+		};
+		this.set( cpnt, idx );
+		if( cpnt.pagerCur )
+			window.tabs.pagerApply( cpnt );
+	}
+};
+var currentCtrl = {
+	play : function( cpnt ){
+		if(!cpnt.direction){
+			cpnt.idx = window.currentIdx.get( cpnt );
+			cpnt.direction = 'next';
+		};
+		cpnt.interval = setInterval(function(){
+			window.currentIdx[cpnt.direction](cpnt);
+		}, cpnt.timer);
+	},
+	pause : function( cpnt ){
+		window.clearInterval( cpnt.interval );
+		cpnt.autoPlay = false;
+		window.setDataAttr( cpnt, 'autoPlay', false);
+	},
+	autoPlay : function( cpnt, timer ){
+		cpnt.timer = timer ? timer : 3000;
+		cpnt.autoPlay = true;		
+		window.setDataAttr( cpnt, 'autoPlay', true);
+		this.play( cpnt );
+	},
+	autoPlayCheck : function( cpnt ){
+		if( cpnt.autoPlay ) {
+			window.clearInterval(cpnt.interval);
+			this.play( cpnt ) ;
+		};
+	}
+};
+var tabs = {
+	set : function( cpnt, items, nth ){
+		cpnt.items = items;
+		cpnt.itemsLen = cpnt.items.length;
+		cpnt.nth = nth;
+	},
+	evtListener : function( cpnt, el, evtType, role ){
+		el[ addEvent ]( eventType[evtType], function(e){
+			var t = window.eTarget(e);
+			if( t.tagName == 'A' ) 										// e.preventDefault();
+				window.prevent(e);
+			t = t.parentElement;
+			if(window.getDataAttr(t, 'role') != role)  					// 이벤트 타겟 검증
+				return;
+			window.currentCtrl.autoPlayCheck(cpnt);						// auto play check
+			var idx = Number( window.getDataAttr(t, 'idx') );
+			window.currentIdx.set( cpnt, idx );
+		});
+	},
+	pagerSet : function( cpnt, pagerCur, pagerTotal){
+		pagerTotal.textContent = cpnt.itemsLen;
+		cpnt.pagerCur = pagerCur;
+		this.pagerApply( cpnt );
+	},
+	pagerApply : function( cpnt ){
+		cpnt.pagerCur.textContent = window.currentIdx.get( cpnt ) + 1;
+	}
+};
+// items이 유동적일 경우
+var panelSlide = {
+	set : function( cpnt, panel ){
+		cpnt.panel = panel;
+		cpnt.itemWidth = cpnt.offsetWidth;
+		var css = '#' + cpnt.id + ' .' + cpnt.panel.firstElementChild.className + ' {width:' + cpnt.itemWidth + 'px' + '}';
+		window.appendStyle(css);
+		cpnt.panel.style.width = cpnt.itemWidth * cpnt.itemsLen + 'px';
+	},
+	panelAnimate : {  
+		true : function( cpnt, xVal ){					// OldIE
+			cpnt.panel.style.left = -xVal + 'px';
+		}, 
+		false : function( cpnt, xVal ){					// css3
+			cpnt.panel.style.webkitTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+			cpnt.panel.style.mozTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+			cpnt.panel.style.oTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+			cpnt.panel.style.transform = 'translate3d(' + -xVal +'px, 0px, 0px)';
+		}
+	}
+};
+
 
 
 /*_____ Tabs.html _____*/

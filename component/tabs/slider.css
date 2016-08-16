@@ -54,13 +54,6 @@ li {
 	position: absolute; 
 	width: 100%;
 }
-.tabs-btn-prev,
-.tabs-btn-next {
-	position: absolute; top: 50%;
-}
-.tabs-btn-prev {
-	left: 0.5em;
-}
 .tabs-btn-next {
 	right: 0.5em;
 }
@@ -138,6 +131,13 @@ li {
 .compo2__tabs .tabs-panel-item h6 {
 	margin:1em;
 }
+.compo2__tabs .tabs-direction {
+	float: left;
+	margin-top: 0.3em;
+}
+.compo2__tabs .tabs-auto {
+	float: right;
+} 
 .compo2__tabs[data-current="0"] .tabs-item[data-idx="0"] .tabs-item-a,
 .compo2__tabs[data-current="1"] .tabs-item[data-idx="1"] .tabs-item-a,
 .compo2__tabs[data-current="2"] .tabs-item[data-idx="2"] .tabs-item-a,
@@ -361,9 +361,16 @@ body:not(.oldIE) .compo4__slider[data-current="5"] .slider-panel {
 .compo6__slider .slider-panel-item h6 {
 	margin:1em;
 }
+.compo6__slider .slider-direction {
+	float: left;
+	margin-top: 0.3em;
+}
 .compo6__slider .slider-btn-prev,
 .compo6__slider .slider-btn-next {
-	top: 30%;
+	position: static;
+}
+.compo6__slider .slider-auto {
+	margin-top: 0.3em;
 }
 .compo6__slider[data-current="0"] .slider-item[data-idx="0"] .slider-item-a,
 .compo6__slider[data-current="1"] .slider-item[data-idx="1"] .slider-item-a,
