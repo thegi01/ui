@@ -64,16 +64,13 @@ getEventType = {
 	}
 };
 
-var  hasAddEvent;
-hasAddEvent =  (Element.prototype.addEventListener) ? true : false;
-
-var eTarget, prevent, addEvent, eventType; 
-addEvent = window.getAddEvent[ hasAddEvent ];
-eventType = window.getEventType[ hasAddEvent ];
-
+var eTarget, prevent, addEvent, eventType, hasAddEvent; 
 window.onload = function(e){
 	eTarget = getETarget[ typeof e.target != 'undefined' ];
 	prevent = getPrevent [ typeof e.preventDefault != 'undefined'];
+	hasAddEvent = this.addEventListener ? true : false;
+	addEvent = window.getAddEvent[ hasAddEvent ];
+	eventType = window.getEventType[ hasAddEvent ];
 };
 
 var appendStyle = function(css){
@@ -174,6 +171,7 @@ var tabs = {
 		cpnt.nth = nth;
 	},
 	evtListener : function( cpnt, el, evtType, role ){
+		console.log(eventType);
 		el[ addEvent ]( eventType[evtType], function(e){
 			var t = window.eTarget(e);
 			if( t.tagName == 'A' ) 										// e.preventDefault();
