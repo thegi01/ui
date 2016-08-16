@@ -2,7 +2,12 @@
 
 /*_____ UI Script _____*/
 
-/* dataAttr */
+/*
+ * 하위 호환성 체크
+ * BC : backward compatibility 
+ */
+
+/* BC > dataAttr */
 var dataAttr, hasDataAttr, getDataAttr, setDataAttr;
 dataAttr = {
 	'true' : {
@@ -26,6 +31,48 @@ hasDataAttr = 'dataset' in document.body;
 getDataAttr = dataAttr[hasDataAttr].get;
 setDataAttr = dataAttr[hasDataAttr].set;
 
+/* BC > Target, Event....*/
+var getETarget, getAddEvent, getPrevent, getAddEvent, getEventType;
+getETarget = {
+	'true' : function(e){
+		return e.target;
+	},
+	'false' : function(e){					// OldIE
+		return e.srcElement;
+	}
+};
+getPrevent = {
+	'true' : function(e){
+		e.preventDefault();
+	},
+	'false' : function(e){				// OldIE
+		e.returnValue = false;
+	}
+};
+getAddEvent = {
+	'true' : 'addEventListener',
+	'false' : 'attachEvent' 				// OldIE
+};
+getEventType = {
+	'true' : {
+		'click' : 'click',
+		'change' : 'change'
+	},
+	'false' : {							// OldIE
+		'click' : 'onclick',
+		'change' : 'onclick'
+	}
+};
+
+var eTarget, prevent, addEvent, eventType, hasAddEvent; 
+hasAddEvent =  (Element.prototype.addEventListener) ? true : false;
+addEvent = window.getAddEvent[ hasAddEvent ];
+eventType = window.getEventType[ hasAddEvent ];
+window.onload = function(e){
+	eTarget = getETarget[ typeof e.target != 'undefined' ];
+	prevent = getPrevent [ typeof e.preventDefault != 'undefined'];
+};
+
 var appendStyle = function(css){
 	var head = document.head || getElementsByTagName(document, 'head')[0],
 		style;
@@ -39,11 +86,11 @@ var appendStyle = function(css){
 	head.appendChild(style);
 };
 
-
-
 /*
  * Components
  */
+
+/* Data Current Control */
 var currentIdx = {
 	set : function( cpnt, idx ){
 		cpnt.current = idx;
@@ -123,15 +170,18 @@ var tabs = {
 		cpnt.itemsLen = cpnt.items.length;
 		cpnt.nth = nth;
 	},
-	evtListener : function( cpnt, evtType ){
-		var _listenr = function(){
-			window.currentCtrl.autoPlayCheck( cpnt );						// auto play check
-			var idx = Number( window.getDataAttr(this, 'idx') );
+	evtListener : function( cpnt, el, evtType, role ){
+		el[ addEvent ]( eventType[evtType], function(e){
+			var t = window.eTarget(e);
+			if( t.tagName == 'A' ) 										// e.preventDefault();
+				window.prevent(e);
+			t = t.parentElement;
+			if(window.getDataAttr(t, 'role') != role)  					// 이벤트 타겟 검증
+				return;
+			window.currentCtrl.autoPlayCheck(cpnt);						// auto play check
+			var idx = Number( window.getDataAttr(t, 'idx') );
 			window.currentIdx.set( cpnt, idx );
-		};
-		for ( var i = 0; i < cpnt.itemsLen ; i++ ) {
-			cpnt.items[i][ evtType ] = _listenr;
-		};
+		});
 	},
 	pagerSet : function( cpnt, pagerCur, pagerTotal){
 		pagerTotal.textContent = cpnt.itemsLen;
@@ -174,7 +224,9 @@ var $news = doc.getElementById('news');
 window.tabs.set($news, $news.getElementsByTagName('h4'));
 window.tabs.evtListener(
 	$news,			// cpnt
-	'onclick' 		// evtType
+	$news, 			// el
+	'click', 		// evtType
+	'tabs-item'		// role
 );
 
 /* compo2 */
@@ -185,7 +237,9 @@ window.tabs.set(
 );
 window.tabs.evtListener(
 	$compo2,			// cpnt
-	'onclick' 			// evtType
+	$compo2, 			// el
+	'click', 			// evtType
+	'tabs-item'			// role
 );
 doc.getElementById('compo2__tabsBtnPrev').onclick = function(){
 	window.currentCtrl.autoPlayCheck($compo2);
@@ -211,7 +265,9 @@ window.tabs.set(
 );
 window.tabs.evtListener(
 	$compo3, 									// cpnt
-	'onclick'								// evtType
+	doc.getElementById('compo3__sliderPager'), 	// el
+	'click',									// evtType
+	'slider-pager-item'							// role
 );
 doc.getElementById('compo3__sliderBtnPrev').onclick = function(){
 	window.currentCtrl.autoPlayCheck($compo3);
@@ -237,7 +293,9 @@ window.tabs.set(
 );
 window.tabs.evtListener(
 	$compo4, 									// cpnt
-	'onclick'									// evtType
+	doc.getElementById('compo4__sliderPager'), 	// el
+	'click',									// evtType
+	'slider-pager-item'							// role
 );
 doc.getElementById('compo4__sliderBtnPrev').onclick = function(){
 	window.currentCtrl.autoPlayCheck($compo4);
@@ -266,6 +324,12 @@ window.panelSlide.set(
 	$compo5,									// cpnt
 	doc.getElementById('compo5__sliderPanels')	// sliderPanles
 );
+/*window.tabs.evtListener(
+	$compo5, 									// cpnt
+	doc.getElementById('compo5__sliderPager'), 	// el
+	'click',									// evtType
+	'slider-pager-item'							// role
+);*/
 doc.getElementById('compo5__sliderBtnPrev').onclick = function(){
 	window.currentCtrl.autoPlayCheck($compo5);
 	window.currentIdx.prev($compo5);
@@ -296,7 +360,9 @@ window.tabs.set(
 );
 window.tabs.evtListener(
 	$compo6,			// cpnt
-	'onclick' 			// evtType
+	$compo6, 			// el
+	'click', 			// evtType
+	'slider-item'			// role
 );
 doc.getElementById('compo6__sliderBtnPrev').onclick = function(){
 	window.currentCtrl.autoPlayCheck($compo6);
