@@ -34,31 +34,31 @@ setDataAttr = dataAttr[hasDataAttr].set;
 /* BC > Target, Event....*/
 var getETarget, getAddEvent, getPrevent, getAddEvent, getEventType;
 getETarget = {
-	true : function(e){
+	'true' : function(e){
 		return e.target;
 	},
-	false : function(){					// OldIE
+	'false' : function(e){					// OldIE
 		return e.srcElement;
 	}
 };
 getPrevent = {
-	true : function(e){
+	'true' : function(e){
 		e.preventDefault();
 	},
-	false : function(e){				// OldIE
+	'false' : function(e){				// OldIE
 		e.returnValue = false;
 	}
 };
 getAddEvent = {
-	true : 'addEventListener',
-	false : 'attachEvent' 				// OldIE
+	'true' : 'addEventListener',
+	'false' : 'attachEvent' 				// OldIE
 };
 getEventType = {
-	true : {
+	'true' : {
 		'click' : 'click',
 		'change' : 'change'
 	},
-	false : {							// OldIE
+	'false' : {							// OldIE
 		'click' : 'onclick',
 		'change' : 'onclick'
 	}
@@ -68,15 +68,16 @@ var  hasAddEvent;
 hasAddEvent =  (Element.prototype.addEventListener) ? true : false;
 
 var eTarget, prevent, addEvent, eventType; 
-addEvent = getAddEvent[ hasAddEvent ];
-eventType = getEventType[ hasAddEvent ];
-document.body.onload = function(e){
+addEvent = window.getAddEvent[ hasAddEvent ];
+eventType = window.getEventType[ hasAddEvent ];
+
+window.onload = function(e){
 	eTarget = getETarget[ typeof e.target != 'undefined' ];
 	prevent = getPrevent [ typeof e.preventDefault != 'undefined'];
 };
 
 var appendStyle = function(css){
-	var head = document.head || getEleByTagName(document, 'head')[0],
+	var head = document.head || getElementsByTagName(document, 'head')[0],
 		style;
 	if(head.getElementsByTagName('style').length){
 		style = head.getElementsByTagName('style')[0];
@@ -97,7 +98,7 @@ var currentIdx = {
 	set : function( cpnt, idx ){
 		cpnt.current = idx;
 		window.setDataAttr(cpnt, 'current', idx);
-		if(isLteIE8)												// In IE8, css doesn't apply 
+		if( isLteIE8 )												// In IE8, css doesn't apply 
 			this.className = this.className;
 		if( cpnt.panel ) 	// items이 유동적일 경우
 			window.panelSlide.panelAnimate[isOldIE](cpnt, idx * cpnt.itemWidth);
@@ -199,15 +200,15 @@ var panelSlide = {
 	set : function( cpnt, panel ){
 		cpnt.panel = panel;
 		cpnt.itemWidth = cpnt.offsetWidth;
-		var css = '#' + cpnt.id + ' .' + cpnt.panel.firstElementChild.className + ' {width:' + cpnt.itemWidth + 'px' + '}';
+		var css = '#' + cpnt.id + ' .' + cpnt.panel.children[0].className + ' {width:' + cpnt.itemWidth + 'px' + '}';
 		window.appendStyle(css);
 		cpnt.panel.style.width = cpnt.itemWidth * cpnt.itemsLen + 'px';
 	},
 	panelAnimate : {  
-		true : function( cpnt, xVal ){					// OldIE
+		'true' : function( cpnt, xVal ){					// OldIE
 			cpnt.panel.style.left = -xVal + 'px';
 		}, 
-		false : function( cpnt, xVal ){					// css3
+		'false' : function( cpnt, xVal ){					// css3
 			cpnt.panel.style.webkitTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
 			cpnt.panel.style.mozTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';
 			cpnt.panel.style.oTransform = 'translate3d(' + -xVal +'px, 0px, 0px)';

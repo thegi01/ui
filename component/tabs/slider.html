@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--[if IE 7]><html lang="ㅌko-KR" class-"OldIE ie7 lteIE8"><![endif]-->
-<!--[if IE 8]><html lang="ko-KR" class-"OldIE ie8 lteIE8"><![endif]-->
+<!--[if IE 7]><html lang="ko-KR" class="OldIE ie7 lteIE8"><![endif]-->
+<!--[if IE 8]><html lang="ko-KR" class="OldIE ie8 lteIE8"><![endif]-->
 <!--[if IE 9]><html lang="ko-KR" class="OldIE ie9"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="ko" class="modern"><!--<![endif]-->
 <head>
@@ -70,7 +70,7 @@
 	</div>
 
 	<h3 class="h3-1">Tabs > Panel 방식</h3>
-	<div id="compo2" class="tabs compo2__tabs" data-current="0" data-auto-play="false">
+	<div id="compo2" class="tabs compo2__tabs" data-current="0" data-autoplay="false">
 		<ul id="compo2__tabsLst" class="tabs-lst">
 			<li class="tabs-item" data-role="tabs-item" data-idx="0"><a href="#href" class="tabs-item-a">Tab 1</a></li>
 			<li class="tabs-item" data-role="tabs-item" data-idx="1"><a href="#href" class="tabs-item-a">Tab 2</a></li>
@@ -117,7 +117,7 @@
 
 	<h2 class="h2-1">Slider</h2>
 	<h3 class="h3-1">Component-3 : fix-width</h3>
-	<div id="compo3" class="slider compo3__slider" data-current="0" data-auto-play="false">
+	<div id="compo3" class="slider compo3__slider" data-current="0" data-autoplay="false">
 		<div id="compo3__sliderPanels" class="slider-panel">
 			<div class="slider-panel-item" data-idx="0"><a href="#href" class="slider-panel-a">사진1</a></div>
 			<div class="slider-panel-item" data-idx="1"><a href="#href" class="slider-panel-a">사진2</a></div>
@@ -145,7 +145,7 @@
 	</div>
 
 	<h3 class="h3-1">Component-4 : full-width</h3>
-	<div id="compo4" class="slider compo4__slider" data-current="1" data-auto-play="false">
+	<div id="compo4" class="slider compo4__slider" data-current="1" data-autoplay="false">
 		<div id="compo4__sliderPanels" class="slider-panel">
 			<div class="slider-panel-item" data-idx="0"><a href="#href" class="slider-panel-a">사진1</a></div>
 			<div class="slider-panel-item" data-idx="1"><a href="#href" class="slider-panel-a">사진2</a></div>
@@ -173,7 +173,7 @@
 	</div>
 
 	<h3 class="h3-1">Component-5 : item이 유동적일 경우</h3>
-	<div id="compo5" class="slider compo5__slider" data-current="0" data-auto-play="false">
+	<div id="compo5" class="slider compo5__slider" data-current="0" data-autoplay="false">
 		<div id="compo5__sliderPanels" class="slider-panel">
 			<div class="slider-panel-item" data-idx="0"><a href="#href" class="slider-panel-a">사진1</a></div>
 			<div class="slider-panel-item" data-idx="1"><a href="#href" class="slider-panel-a">사진2</a></div>
@@ -200,7 +200,7 @@
 	</div>
 
 	<h3 class="h3-1">Component-6 : 여러 개 단위</h3>
-	<div id="compo6" class="slider compo6__slider" data-current="0" data-auto-play="false">
+	<div id="compo6" class="slider compo6__slider" data-current="0" data-autoplay="false">
 		<div id="compo6__sliderPanel" class="slider-panel">
 			<div class="slider-panel-item" data-idx="0">
 				<h6>Panel 1</h6>
@@ -249,8 +249,16 @@
 	var isLteIE8 = false,
 		isOldIE = false; 
 </script>
-<!--[if lte IE 8]> <script> isLteIE8 = true; </script> <![endif]-->
-<!--[if lte IE 9]> <script> isOldIE = true; </script> <![endif]-->
+<!--[if lte IE 8]> 
+	<script> 
+		isLteIE8 = true; 
+	</script> 
+<![endif]-->
+<!--[if lte IE 9]> 
+	<script> 
+		isOldIE = true; 
+	</script> 
+<![endif]-->
 <script type="text/javascript" src="slider.js"></script>
 <!-- //javacript -->
 
