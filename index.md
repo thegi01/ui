@@ -10,10 +10,17 @@
 
 ---
 
-
 ### FORM
 1. 표준 정리
 2. [참조] : https://github.com/dypsilon/frontend-dev-bookmarks/blob/master/user-interface-components/forms.md
+
+---
+
+### Semantic UI Coding
+1. Elements 
+2. Collections
+3. Views
+4. Modules
 
 ---
 
@@ -32,8 +39,5 @@
 1. 맥북 한번 더 확인
 2. 윈도우 설치 후 테스트 
 
-
-## Naming
-1. Semantic UI : Elements, Collections, Views, Modules
 
 
