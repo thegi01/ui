@@ -89,6 +89,7 @@ var currentIdx = {
 };
 var currentCtrl = {
 	play : function( cpnt ){
+		var self = this;
 		if(!cpnt.direction){
 			cpnt.idx = window.currentIdx.get( cpnt );
 			cpnt.direction = 'next';
@@ -199,7 +200,8 @@ doc.getElementById('compo2__tabsBtnPause').onclick = function(){
 doc.getElementById('compo2__tabsBtnPlay').onclick = function(){
 	window.currentCtrl.autoPlay($compo2, 3000);
 };
-// autoPlay($compo2, 2000);
+window.currentCtrl.autoPlay($compo2, 3000);
+
 
 /* compo3 */
 var $compo3 = doc.getElementById('compo3');
@@ -225,7 +227,7 @@ doc.getElementById('compo3__sliderBtnPause').onclick = function(){
 doc.getElementById('compo3__sliderBtnPlay').onclick = function(){
 	window.currentCtrl.autoPlay($compo3, 2000);
 };
-// autoPlay($compo3, 2000);
+// window.currentCtrl.autoPlay($compo3, 2000);
 
 /* compo4 */
 var $compo4 = doc.getElementById('compo4');
@@ -251,7 +253,7 @@ doc.getElementById('compo4__sliderBtnPause').onclick = function(){
 doc.getElementById('compo4__sliderBtnPlay').onclick = function(){
 	window.currentCtrl.autoPlay($compo4, 2000);
 };
-// autoPlay($compo4, 2000);
+// window.currentCtrl.autoPlay($compo4, 2000);
 
 /* compo5 */
 var $compo5 = doc.getElementById('compo5'),
@@ -278,7 +280,7 @@ doc.getElementById('compo5__sliderBtnPause').onclick = function(){
 doc.getElementById('compo5__sliderBtnPlay').onclick = function(){
 	window.currentCtrl.autoPlay($compo5, 2000);
 };
-// autoPlay($compo5, 2000);
+// awindow.currentCtrl.utoPlay($compo5, 2000);
 window.tabs.pagerSet(
 	$compo5, 
 	doc.getElementById('compo5__sliderPagerCurrent'), 
@@ -310,5 +312,5 @@ doc.getElementById('compo6__sliderBtnPause').onclick = function(){
 doc.getElementById('compo6__sliderBtnPlay').onclick = function(){
 	window.currentCtrl.autoPlay($compo6, 3000);
 };
-// autoPlay($compo2, 2000);
+// window.currentCtrl.autoPlay($compo2, 2000);
 

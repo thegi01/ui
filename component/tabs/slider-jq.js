@@ -175,11 +175,11 @@ $('#compo2__tabsBtnPlay').click(function(){
 var $compo3 = $('#compo3');
 window.tabs.set(
 	$compo3, 									// cpnt
-	$compo3.find('li')			// Items
+	$compo3.find('li')							// Items
 );
 window.tabs.evtListener(
 	$compo3, 									// cpnt
-	'click'								// evtType
+	'click'										// evtType
 );
 $('#compo3__sliderBtnPrev').click(function(){
 	window.currentCtrl.autoPlayCheck($compo3);
@@ -201,11 +201,11 @@ $('#compo3__sliderBtnPlay').click(function(){
 var $compo4 = $('#compo4');
 window.tabs.set(
 	$compo4, 									// cpnt
-	$compo4.find('li')			// Items
+	$compo4.find('li')							// Items
 );
 window.tabs.evtListener(
 	$compo4, 									// cpnt
-	'click'									// evtType
+	'click'										// evtType
 );
 $('#compo4__sliderBtnPrev').click(function(){
 	window.currentCtrl.autoPlayCheck($compo4);

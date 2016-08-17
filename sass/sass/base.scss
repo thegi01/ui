@@ -467,10 +467,25 @@ a:hover {
 	@extend %extreme;
 }
 
-/* style 종류 
+/* 
+사용법
+sass (작성된)파일명.scss (변환될)파일명.css
+
+style.css 파일이 변경될 때마다 자동으로 style.css로 변경해주는 명령
+sass --watch style.scss:style.css
+
+stylesheets/sass 디렉토리에 있는 모든 sass 파일을 
+CSS로 변환한 후에 stylesheets/compiled 디렉토리로 이동하는 명령
+sass --watch stylesheets/sass:stylesheets/compiled
+
+sourcemap 생성하지 않는 옵션 : --sourcemap=none
+ex) sass --watch style.scss:style.css --sourcemap=none
+
+style 종류 
 중첩(nested) : sass의 기본 스타일로 html 문서처럼 부모요소에 대한 하위요소는 들여쓰기 되는 형식
 확장(expanded) : 일반적인 css 스타일로 선탁자에 따라 속성이 들여쓰기 되는 형식
 축약(compact) : 업무에서 가장 많이 사용되는 스타일로 한줄씩 출력되는 스타일
+compressed : 압축
 
 명령어 : sass -style compact test.scss test.css
 
