@@ -494,6 +494,8 @@ sass --watch (작성된)파일명.scss
 sass --watch --style종류 (작성된)파일명.scss
 
 sass --watch foler:foledr --style compressed
+
+sass --watch slider.scss:slider.css --style expanded --sourcemap=none
 */
 
 
