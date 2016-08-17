@@ -1,4 +1,4 @@
-@charset "utf-8";
+@CHARSET "utf-8";
 // sass --watch slider.scss:slider.css --style expanded --sourcemap=none
 
 
@@ -98,7 +98,9 @@ a {
 /* tabs > js */
 .tabs {
 	&[data-play="false"] .tabs-btn-pause,
-	&[data-play="true"] .tabs-btn-play { display: none; }
+	&[data-play="true"] .tabs-btn-play,
+	&[data-play="pause"] .tabs-btn-pause,
+	&[data-play="pause"] .tabs-btn-play { display: none; }
 	&[data-current="0"] .tabs-cnts[data-idx="0"],
 	&[data-current="1"] .tabs-cnts[data-idx="1"],
 	&[data-current="2"] .tabs-cnts[data-idx="2"],

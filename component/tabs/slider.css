@@ -1,3 +1,4 @@
+@CHARSET "utf-8";
 /* base */
 a {
   color: #111;
@@ -77,7 +78,7 @@ a:hover {
 }
 
 /* tabs > js */
-.tabs[data-play="false"] .tabs-btn-pause, .tabs[data-play="true"] .tabs-btn-play {
+.tabs[data-play="false"] .tabs-btn-pause, .tabs[data-play="true"] .tabs-btn-play, .tabs[data-play="pause"] .tabs-btn-pause, .tabs[data-play="pause"] .tabs-btn-play {
   display: none;
 }
 .tabs[data-current="0"] .tabs-cnts[data-idx="0"], .tabs[data-current="1"] .tabs-cnts[data-idx="1"], .tabs[data-current="2"] .tabs-cnts[data-idx="2"], .tabs[data-current="3"] .tabs-cnts[data-idx="3"], .tabs[data-current="4"] .tabs-cnts[data-idx="4"] {

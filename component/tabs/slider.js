@@ -104,7 +104,8 @@ var currentCtrl = {
 		window.setDataAttr( cpnt, 'play', false);
 	},
 	autoPlay : function( cpnt, timer ){
-		cpnt.timer = timer ? timer : 3000;
+		if(!cpnt.timer)
+			cpnt.timer = timer ? timer : 3000;
 		cpnt.play = true;		
 		window.setDataAttr( cpnt, 'play', true);
 		this.play( cpnt );
@@ -200,8 +201,16 @@ doc.getElementById('compo2__tabsBtnPause').onclick = function(){
 doc.getElementById('compo2__tabsBtnPlay').onclick = function(){
 	window.currentCtrl.autoPlay($compo2, 3000);
 };
-window.currentCtrl.autoPlay($compo2, 3000);
-
+window.currentCtrl.autoPlay($compo2, 1000);
+if($compo2.play) {
+	doc.getElementById('compo2__tabsPanel').onmouseover = function(){
+		window.currentCtrl.pause( $compo2 );
+		window.setDataAttr( $compo2, 'play', 'pause');
+	};
+	doc.getElementById('compo2__tabsPanel').onmouseout = function(){		
+		window.currentCtrl.autoPlay( $compo2 );
+	};
+};
 
 /* compo3 */
 var $compo3 = doc.getElementById('compo3');
