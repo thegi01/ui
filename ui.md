@@ -2,6 +2,7 @@
 
 ## BEM
 1. naming 규칙
+    - block-name__elem-name_mod-name
 2. html, css, js, file 어떻게 정리할 것인가?
 
 
