@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 7]><html lang="ko-KR" class="OldIE lteIE8"><![endif]-->
-<!--[if IE 8]><html lang="ko-KR" class="OldIE lteIE8"><![endif]-->
-<!--[if IE 9]><html lang="ko-KR" class="OldIE ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="ko" class="modern"><!--<![endif]-->
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
 	<title>Tabs, Slider</title>
@@ -10,7 +7,12 @@
 	<meta name="robots" content="noindex,nofollow">
 	<meta name="googlebot" content="noindex,nofollow">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="stylesheet" type="text/css" href="slider.css">
+	<!--[if (gt IE 8)|!(IE)]><!-->
+        <link rel="stylesheet" href="slider.css">
+    <!--<![endif]-->
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="slider-ie.css">
+    <![endif]-->
 </head>
 <body>
 
@@ -237,11 +239,6 @@
 			<button id="compo6__sliderBtnPause" class="slider-btn-pause">정지</button>
 		</div>
 	</div>
-
-
-	<!-- <div style="margin-top:5em;">http://bxslider.com/examples</div> -->
-
-	
 		
 </div>		
 

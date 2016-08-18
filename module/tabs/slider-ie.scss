@@ -1,0 +1,42 @@
+@CHARSET "utf-8";
+
+@import '_module.scss';
+
+/* compo3__slider */
+.compo3__slider {
+	$len : 6;
+	&{
+		@for $i from 0 through $len {
+			&[data-current="#{$i}"] .slider-panel { 
+				left: -100% * $i; 
+			}
+		}
+	}
+}
+
+/* compo4__slider */
+.compo4__slider {
+	$len : 6;
+	$len : $len - 1;
+	&{
+		@for $i from 0 through $len {
+			&[data-current="#{$i}"] .slider-panel { 
+				left:-100% * $i; 
+			}
+		}
+	}
+}
+
+/* compo6__slider */
+.compo6__slider {
+	$len : 6; 
+	$nth : 2;
+	$unit : 100% / $len;
+	$len : $len - 1;
+	&{
+		@for $i from 0 through $len {
+			$val : floor($i/$nth);
+			&[data-current="#{$i}"] .slider-panel {left : -100% * $val }
+		}
+	}
+}
