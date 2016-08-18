@@ -1,8 +1,12 @@
 # UI Coding
 
+## BEM
+1. naming 규칙
+2. html, css, js, file 어떻게 정리할 것인가?
+
+
 
 ## Components
-
 
 ### Tabs 
 1. [Slider 바로가기](http://thegi01.github.io/ui/component/tabs/slider.html)
@@ -23,6 +27,8 @@
 4. Modules
 
 ---
+
+
 
 ## Sass
 1. 분류 기준을 무엇으로 할 것인가?
