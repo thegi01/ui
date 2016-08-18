@@ -1,6 +1,5 @@
 @CHARSET "utf-8";
-// sass --watch slider.scss:slider.css --style expanded --sourcemap=none
-
+// sass --watch slider.scss:slider.css --style compact
 
 // mixin
 @mixin clearfix {
@@ -39,7 +38,6 @@ a {
 		color : #111;
 	}
 }
-
 .wrap {
 	margin: 1em;
 }
@@ -101,11 +99,9 @@ a {
 	&[data-play="true"] .tabs-btn-play,
 	&[data-play="pause"] .tabs-btn-pause,
 	&[data-play="pause"] .tabs-btn-play { display: none; }
-	&[data-current="0"] .tabs-cnts[data-idx="0"],
-	&[data-current="1"] .tabs-cnts[data-idx="1"],
-	&[data-current="2"] .tabs-cnts[data-idx="2"],
-	&[data-current="3"] .tabs-cnts[data-idx="3"],
-	&[data-current="4"] .tabs-cnts[data-idx="4"] { display: block; }
+	@for $i from 0 through 4 {
+		&[data-current="#{$i}"] .tabs-cnts[data-idx="#{$i}"] { display: block; }
+	}
 }
 
 /* tabs > news__tabs */ 
@@ -124,11 +120,9 @@ a {
 	.tabs-cnts {
 		top:1.5em; 
 	}
-	&[data-current="0"] .tabs-item[data-idx="0"] .tabs-item-a,
-	&[data-current="1"] .tabs-item[data-idx="1"] .tabs-item-a,
-	&[data-current="2"] .tabs-item[data-idx="2"] .tabs-item-a,
-	&[data-current="3"] .tabs-item[data-idx="3"] .tabs-item-a,
-	&[data-current="4"] .tabs-item[data-idx="4"] .tabs-item-a { color : green; }
+	@for $i from 0 through 4 {
+		&[data-current="#{$i}"] .tabs-item[data-idx="#{$i}"] .tabs-item-a { color : green; }
+	}
 }
 
 /* compo2__tabs */
@@ -168,20 +162,17 @@ a {
 	.tabs-auto {
 		float: right;
 	} 
-	&[data-current="0"] .tabs-item[data-idx="0"] .tabs-item-a,
-	&[data-current="1"] .tabs-item[data-idx="1"] .tabs-item-a,
-	&[data-current="2"] .tabs-item[data-idx="2"] .tabs-item-a,
-	&[data-current="3"] .tabs-item[data-idx="3"] .tabs-item-a,
-	&[data-current="4"] .tabs-item[data-idx="4"] .tabs-item-a,
-	&[data-current="5"] .tabs-item[data-idx="5"] .tabs-item-a {
-		font-weight: bold; color: green;
+	$len : 5;
+	@for $i from 0 through $len {
+		&[data-current="#{$i}"] .tabs-item[data-idx="#{$i}"] .tabs-item-a {
+			font-weight: bold; color: green;
+		}
 	}
-	&[data-current="0"] .tabs-panel-item[data-idx="0"],
-	&[data-current="1"] .tabs-panel-item[data-idx="1"],
-	&[data-current="2"] .tabs-panel-item[data-idx="2"],
-	&[data-current="3"] .tabs-panel-item[data-idx="3"],
-	&[data-current="4"] .tabs-panel-item[data-idx="4"],
-	&[data-current="5"] .tabs-panel-item[data-idx="5"] { display: table-cell; }
+	@for $i from 0 through $len {
+		&[data-current="#{$i}"] .tabs-panel-item[data-idx="#{$i}"] { 
+			display: table-cell; 
+		}
+	}
 }
 
 /* slider */
@@ -238,64 +229,66 @@ a {
 .slider {
 	&[data-play="false"] .slider-btn-pause,
 	&[data-play="true"] .slider-btn-play { display : none; }
-	&[data-current="0"] .slider-pager-item[data-idx="0"],
-	&[data-current="1"] .slider-pager-item[data-idx="1"],
-	&[data-current="2"] .slider-pager-item[data-idx="2"],
-	&[data-current="3"] .slider-pager-item[data-idx="3"],
-	&[data-current="4"] .slider-pager-item[data-idx="4"],
-	&[data-current="5"] .slider-pager-item[data-idx="5"] { background-color: green; }
+	@for $i from 0 through 5 {
+		&[data-current="#{$i}"] .slider-pager-item[data-idx="#{$i}"] { 
+			background-color: green; 
+		}
+	}
 }
 
 /* compo3__slider */
 .compo3__slider {
-	width : 300px;
+	$width : 300px;
+	$len : 6;
+
+	width : $width;
 	.slider-panel-item {
-		width : 300px;
+		width : $width;
 	}
 	.slider-panel {
-		width : 600%;
+		width : 100% * $len;
 	}
 	.modern &{
-		&[data-current="0"] .slider-panel { @include tarnslate3d(0px, 0px, 0px); }
-		&[data-current="1"] .slider-panel { @include tarnslate3d(-16.666666%, 0px, 0px); }
-		&[data-current="2"] .slider-panel { @include tarnslate3d(-33.333333%, 0px, 0px); }
-		&[data-current="3"] .slider-panel { @include tarnslate3d(-49.999999%, 0px, 0px); }
-		&[data-current="4"] .slider-panel { @include tarnslate3d(-66.666666%, 0px, 0px); }
-		&[data-current="5"] .slider-panel { @include tarnslate3d(-83.333333%, 0px, 0px); }
+		$len : $len - 1;
+		@for $i from 0 through $len {
+			&[data-current="#{$i}"] .slider-panel { 
+				@include tarnslate3d(-16.666666% * $i, 0px, 0px); 
+			}
+		}
 	}
 	.OldIE &{
-		&[data-current="0"] .slider-panel { left:0; }
-		&[data-current="1"] .slider-panel { left:-100%; }
-		&[data-current="2"] .slider-panel { left:-200%; }
-		&[data-current="3"] .slider-panel { left:-300%; }
-		&[data-current="4"] .slider-panel { left:-400%; }
-		&[data-current="5"] .slider-panel { left:-500%; }
+		@for $i from 0 through $len {
+			&[data-current="#{$i}"] .slider-panel { 
+				left: -100% * $i; 
+			}
+		}
 	}
 }
 
 /* compo4__slider */
 .compo4__slider {
+	$len : 6;
+
 	.slider-panel {
-		width : 600%;
+		width : 100% * $len;
 	}
 	.slider-panel-item {
-		width : 16.666666%;
+		width : 100% / $len;
 	}
+	$len : $len - 1;
 	.modern &{
-		&[data-current="0"] .slider-panel { @include tarnslate3d(0px, 0px, 0px); }
-		&[data-current="1"] .slider-panel { @include tarnslate3d(-16.666666%, 0px, 0px); }
-		&[data-current="2"] .slider-panel { @include tarnslate3d(-33.333333%, 0px, 0px); }
-		&[data-current="3"] .slider-panel { @include tarnslate3d(-49.999999%, 0px, 0px); }
-		&[data-current="4"] .slider-panel { @include tarnslate3d(-66.666666%, 0px, 0px); }
-		&[data-current="5"] .slider-panel { @include tarnslate3d(-83.333333%, 0px, 0px); }
+		@for $i from 0 through $len {
+			&[data-current="#{$i}"] .slider-panel { 
+				@include tarnslate3d(-16.666666% * $i, 0px, 0px); 
+			}
+		}
 	}
 	.OldIE &{
-		&[data-current="0"] .slider-panel {left:0;}
-		&[data-current="1"] .slider-panel {left:-100%}
-		&[data-current="2"] .slider-panel {left:-200%;}
-		&[data-current="3"] .slider-panel {left:-300%;}
-		&[data-current="4"] .slider-panel {left:-400%;}
-		&[data-current="5"] .slider-panel {left:-500%;}
+		@for $i from 0 through $len {
+			&[data-current="#{$i}"] .slider-panel { 
+				left:-100% * $i; 
+			}
+		}
 	}
 }
 
@@ -325,17 +318,20 @@ a {
 
 /* compo6__slider */
 .compo6__slider {
+	$len : 6; 
+	$nth : 2;
+	$unit : 100% / $len;
 	height: 130px;
 	.slider-panel {
 		position: relative;
-		width : 600%; height : 100px;
+		width : 100% * $len; height : 100px;
 		margin: 0; padding : 0;
 		box-sizing : border-box;
 		background-color: #f9f9f9;
 	}
 	.slider-panel-item {
 		float: left;
-		width : 8.333333%; height: 100%;
+		width : $unit / $nth ; height: 100%;
 		box-sizing : border-box; border: solid 1px #f1f1f1;
 		vertical-align: middle; text-align: center;
 	}
@@ -353,29 +349,25 @@ a {
 	.slider-auto {
 		margin-top: 0.3em;
 	}
-	&[data-current="0"] .slider-item[data-idx="0"] .slider-item-a,
-	&[data-current="1"] .slider-item[data-idx="1"] .slider-item-a,
-	&[data-current="2"] .slider-item[data-idx="2"] .slider-item-a,
-	&[data-current="3"] .slider-item[data-idx="3"] .slider-item-a,
-	&[data-current="4"] .slider-item[data-idx="4"] .slider-item-a,
-	&[data-current="5"] .slider-item[data-idx="5"] .slider-item-a {
-		font-weight: bold; color: green;
+	$len : $len - 1;
+	@for $i from 0 through $len {
+		&[data-current="#{$i}"] .slider-item[data-idx="#{$i}"] .slider-item-a {
+			font-weight: bold; color: green;
+		}
 	}
 	.modern & {
-		&[data-current="0"] .slider-panel,
-		&[data-current="1"] .slider-panel { @include tarnslate3d(0px, 0px, 0px); }
-		&[data-current="2"] .slider-panel,
-		&[data-current="3"] .slider-panel { @include tarnslate3d(-16.666666%, 0px, 0px); }
-		&[data-current="4"] .slider-panel,
-		&[data-current="5"] .slider-panel  {@include tarnslate3d(-33.333333%, 0px, 0px); }
+		@for $i from 0 through $len {
+			$val : floor($i/$nth);
+			&[data-current="#{$i}"] .slider-panel  {
+				@include tarnslate3d( $unit * $val, 0px, 0px ); 
+			}
+		}
 	}
 	.OldIE & {
-		&[data-current="0"] .slider-panel,
-		&[data-current="1"] .slider-panel { left : 0; }
-		&[data-current="2"] .slider-panel,
-		&[data-current="3"] .slider-panel { left : -100%; }
-		&[data-current="4"] .slider-panel,
-		&[data-current="5"] .slider-panel { left : -200%; }
+		@for $i from 0 through $len {
+			$val : floor($i/$nth);
+			&[data-current="#{$i}"] .slider-panel {left : -100% * $val }
+		}
 	}
 }
 
