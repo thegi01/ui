@@ -1,7 +1,7 @@
-# UI Coding
+# UI 
 
 
-## Module Coding
+## Module 
 
 ### Tabs 
 1. [Slider 바로가기](http://thegi01.github.io/ui/module/tabs/slider.html)
