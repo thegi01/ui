@@ -1,8 +1,14 @@
 # UI Coding
 
 ## BEM
-1. naming 규칙
-    - block-name__elem-name_mod-name
+1. naming 규칙 : block-name__elem-name_mod-name
+    - menu__item_visible
+    - menu__item_type_radio
+    - form_login
+    - form_theme_forest
+    - form__input
+    - form__submit
+    - form__submit_disabled
 2. html, css, js, file 어떻게 정리할 것인가?
 
 
