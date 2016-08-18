@@ -6,27 +6,24 @@
 
 
 
-## Components
+## Components Coding
 
 ### Tabs 
 1. [Slider 바로가기](http://thegi01.github.io/ui/component/tabs/slider.html)
 2. Slider > 마우스 오버, 포커스 이벤트 시 애니메이션 멈춤 기능 적용
 
----
+
 
 ### FORM
 1. 표준 정리
 2. [참조] : https://github.com/dypsilon/frontend-dev-bookmarks/blob/master/user-interface-components/forms.md
 
----
 
 ### Semantic UI Coding
 1. Elements 
 2. Collections
 3. Views
 4. Modules
-
----
 
 
 
