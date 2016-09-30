@@ -9,7 +9,7 @@
 - [jQuery] : http://thegi01.github.io/ui/module/tabs/slider-jq.html
 
 
-## Test-1
+## Test
 - [element 기준] : http://thegi01.github.io/ui/module/tabs/tabs-el.html
 - [call 사용] : http://thegi01.github.io/ui/module/tabs/tabs-call.html
 - [jQuery] : http://thegi01.github.io/ui/module/tabs/tabs-jq.html
