@@ -1,4 +1,4 @@
-# Module별 UI 연습
+# UI 연습들
 
 ## Naver Rank up
 - https://github.com/thegi01/ui/tree/gh-pages/module/naver-rank
