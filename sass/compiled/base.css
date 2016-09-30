@@ -358,6 +358,9 @@ sass --watch (작성된)파일명.scss
 sass --watch --style종류 (작성된)파일명.scss
 
 sass --watch foler:foledr --style compressed
+
+--sourcemap=none : sourcemap 파일을 생성하지 않는다.
+sass --watch style.scss:style.css --sourcemap=none
 */
 
 /*# sourceMappingURL=base.css.map */

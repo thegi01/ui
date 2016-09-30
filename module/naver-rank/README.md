@@ -6,6 +6,7 @@
 - 브라우저 : 크롬, 파이어폭스, 오페라, 사파리, IE(8~11)
 - 웹표준, 웹접근성을 준수한다.
 - javaScript, jQuery로 구현
+- [URL] : http://thegi01.github.io/ui/module/naver-rank/rankup.html"
 
 ## UX
 
