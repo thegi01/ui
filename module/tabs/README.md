@@ -14,5 +14,3 @@
 - [call 사용] : http://thegi01.github.io/ui/module/tabs/tabs-call.html
 - [jQuery] : http://thegi01.github.io/ui/module/tabs/tabs-jq.html
 
-## Test-2
-- [jQuery] :
