@@ -7,7 +7,8 @@
 - 웹표준, 웹접근성 준수
 - 데이터는 json 형식으로 받아온다.
 - javaScript, jQuery로 구현
-- http://thegi01.github.io/ui/module/naver-tab/tab-contents.html
+- [javascript] : http://thegi01.github.io/ui/module/naver-tab/tab-contents.html
+- [jQuery] : http://thegi01.github.io/ui/module/naver-tab/tab-contents-jq.html
 
 ## UX
 
