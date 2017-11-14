@@ -1,0 +1,105 @@
+body {
+  color: #333;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial; }
+
+.separator {
+  margin-top: 40px; }
+
+.twitter {
+  color: #FFF;
+  text-decoration: none;
+  border-radius: 4px;
+  background: #00ACED;
+  display: inline-block;
+  padding: 10px 8px;
+  margin-bottom: 15px;
+  font-weight: bold; }
+
+/* 3D Cube */
+.space3d {
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  perspective: 1000px; }
+
+._3dbox {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: all 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  border-radius: 50%; }
+
+._3dface {
+  overflow: hidden;
+  position: absolute;
+  z-index: 2;
+  border: 1px solid #888;
+  background: #FFF;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.1), 0 0 50px rgba(0, 0, 0, 0.3);
+  color: #333;
+  line-height: 250px;
+  opacity: 0.8;
+  border-radius: 50%; }
+
+._3dface--front {
+  width: 250px;
+  height: 250px;
+  transform: translate3d(0, 0, 3.5px); }
+
+._3dface--back {
+  width: 250px;
+  height: 250px;
+  transform: rotateY(180deg) translate3d(0, 0, 3.5px); }
+
+._3dface--side {
+  width: 7px;
+  height: 250px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 1;
+  margin-left: -3.5px;
+  background-color: #5e5e5e;
+  transform: rotateY(-90deg);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.1), 0 0 50px rgba(0, 0, 0, 0.3); }
+
+/* ._3dface--side {
+    position: absolute;
+    width: $cubeWidth; height: $cubeHeight;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background-color: transparent;
+    border: solid $cubeSideWidth #000;
+    opacity: 0.3;
+    transform: rotateY(90deg) translate3d(0, 0, $cubeSideWidth);
+} */
+#radio-left:checked ~ .space3d ._3dbox {
+  transform: rotateY(90deg); }
+
+#radio-right:checked ~ .space3d ._3dbox {
+  transform: rotateY(-90deg); }
+
+#radio-bottom:checked ~ .space3d ._3dbox {
+  transform: rotateX(90deg); }
+
+#radio-top:checked ~ .space3d ._3dbox {
+  transform: rotateX(-90deg); }
+
+#radio-back:checked ~ .space3d ._3dbox {
+  transform: rotateY(180deg); }
+
+._3dface--front {
+  background: url(https://2.bp.blogspot.com/-JxKfUObT4L8/UYYaRhRNJmI/AAAAAAAAAUY/243IlIOKj2c/s320/brahama.jpg);
+  background-size: 100%; }
+
+._3dface--back {
+  background: url(https://3.bp.blogspot.com/-ofufG97PpiU/UBzXu-1AisI/AAAAAAAAAP0/iDnhOh-vrb8/s400/shiv+ji.jpg);
+  background-size: auto 100%; }
+
+/*# sourceMappingURL=circle.css.map */
