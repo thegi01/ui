@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 3d transform</title>
+    <style type="text/css">
+        @keyframes spinner {
+            from {
+                -moz-transform: rotateY(0deg); -ms-transform: rotateY(0deg); transform: rotateY(0deg);
+            }
+            to {
+                -moz-transform: rotateY(-360deg); -ms-transform: rotateY(-360deg); transform: rotateY(-360deg);
+            }
+        }
+
+        .stage {
+            margin: 1em auto;
+            -webkit-perspective: 1200px; -moz-perspective: 1200px; -ms-perspective: 1200px; perspective: 1200px;
+        }
+
+        .spinner {
+            -webkit-animation-name: spinner; animation-name: spinner;
+            -webkit-animation-timing-function: linear; animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite;
+            -webkit-animation-duration: 6s; animation-duration: 6s;
+
+            -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; -ms-transform-style: preserve-3d; transform-style: preserve-3d;
+        }
+        .spinner:hover {
+            -webkit-animation-play-state: paused; animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="stage" style="background: rgba(0, 0, 0, 0.5)">
+        <div class="spinner" style="background:rgba(0, 0, 0, 0.5); text-align: center; color: #fff">Stop, I'm getting dizzy!</div>
+        
+    </div>
+
+    더 작업할 것 
+
+    
+
+    <a href="http://www.the-art-of-web.com/css/3d-transforms/">http://www.the-art-of-web.com/css/3d-transforms/</a>
+</body>
+</html>
